@@ -1,1 +1,48 @@
-<p>header works!</p>
+<nav>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+            <div class="w-40">
+                <a href="/home">
+                    <img class="w-auto" src="assets/brand/logo.svg" alt="App Logo">
+                </a>
+            </div>
+
+            <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                    <a href="#" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Inicio</a>
+                    <a href="#" class="text-gray-700 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Encuentra tu mascota</a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Btn  -->
+            <div class="flex items-center sm:hidden">  
+                <button type="button" class="relative p-2" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="absolute -inset-0.5" (click)="toggleMenu()"></span>
+
+                    @if (!isMenuOpen) {
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path fill="rgb(75 85 99)" d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+                        </svg>
+                    } @else {
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="rgb(75 85 99)" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                        </svg>
+                    }
+
+                </button>
+            </div>
+        </div>
+
+    </div>
+  
+    @if (isMenuOpen) {
+        <div class="sm:hidden" id="mobile-menu">
+            <div class="space-y-1 px-2 pb-3 pt-2">
+              <a href="#" class="bg-sky-600 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Inicio</a>
+              <a href="#" class="text-gray-700 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Encuentra tu mascota</a>
+            </div>
+        </div>
+    }
+</nav>
+  
