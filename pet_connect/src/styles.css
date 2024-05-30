@@ -4,14 +4,32 @@
 
 @layer base {
   @font-face {
-    font-family: 'Poppins';
-    src: url(/assets/fonts/Roboto-Slab/RobotoSlab-VariableFont_wght.ttf) format('truetype');
+    font-family: 'PoppinsBlack';
+    src: url(/assets/fonts/Poppins/Poppins-Black.ttf) format('truetype');
   }
 }
 
 @layer base {
   @font-face {
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     src: url(/assets/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
   }
+}
+
+
+
+.btn {
+  @apply font-bold py-3 px-6 rounded font-semibold;
+}
+.btn-sky {
+  @apply bg-sky-600 text-slate-200;
+}
+.btn-sky:hover {
+  @apply bg-sky-500 text-slate-50;
+}
+.btn-light {
+  @apply border border-sky-600 text-gray-600;
+}
+.btn-light:hover {
+  @apply bg-sky-500 text-slate-50;
 }

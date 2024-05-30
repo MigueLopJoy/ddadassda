@@ -2,17 +2,16 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b">
         <div class="flex h-16 items-center justify-between">
             <div class="w-40">
-                <a href="/home">
+                <a routerLink="/home" >
                     <img class="w-auto" src="assets/brand/logo.svg" alt="App Logo">
                 </a>
             </div>
 
             <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="#" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    <a routerLink="/home" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium"
                         aria-current="page">Inicio</a>
-                    <a href="#"
+                    <a routerLink="/buscar-mascota"
                         class="text-gray-700 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Encuentra
                         tu mascota</a>
                 </div>
@@ -21,6 +20,7 @@
             <!-- Mobile Menu Btn  -->
             <div class="flex items-center sm:hidden">
                 <button type="button" class="relative p-2" aria-controls="mobile-menu" aria-expanded="false">
+                    
                     <span class="absolute -inset-0.5" (click)="toggleMenu()"></span>
 
                     @if (!isMenuOpen) {
@@ -42,13 +42,15 @@
     </div>
 
     @if (isMenuOpen) {
-    <div class="sm:hidden" id="mobile-menu">
+    <div class="sm:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2">
-            <a href="#" class="bg-sky-600 text-white block rounded-md px-3 py-2 text-base font-medium"
+            <a routerLink="/home"  
+                class="bg-sky-600 text-white block rounded-md px-3 py-2 text-base font-medium"
                 aria-current="page">Inicio</a>
-            <a href="#"
-                class="text-gray-700 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Encuentra
-                tu mascota</a>
+            <a routerLink="/buscar-mascota" 
+                class="text-gray-700 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                Encuentra tu mascota
+            </a>
         </div>
     </div>
     }
