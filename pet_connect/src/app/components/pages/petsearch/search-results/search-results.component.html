@@ -1,0 +1,8 @@
+<div class="mb-6">
+    <p><span>12</span> mascotas encontradas</p>
+</div>
+<div class="flex flex-col gap-12">
+    @for (foundPet of foundPets; track foundPet.name) {
+    <app-pet-card [pet]="foundPet"></app-pet-card>
+    }
+</div>

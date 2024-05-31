@@ -1,24 +1,18 @@
 <section>
-    <div class="p-4">
+    <div class="p-8">
 
-        <div class="flex items-center gap-4 mb-4">
+        <div class="mb-6">
             <button class="btn btn-sky" (click)="toggleFiltersWindow()">Filtros</button>
         </div>
 
-        <div class="">
-            <div class="mb-4">
-                <p><span>12</span> mascotas encontradas</p>
-            </div>
-            <div class="flex flex-col gap-4">
-                <app-pet-card></app-pet-card>
-                <app-pet-card></app-pet-card>
-            </div>
+        <div class="p-2">
+            <app-search-results></app-search-results>
         </div>
 
     </div>
 
     @if (showFiltersWindow) {
-        <app-filters-window (closeWindowEmitter)="toggleFiltersWindow()"></app-filters-window>
+    <app-filters-window (closeWindowEmitter)="toggleFiltersWindow()"></app-filters-window>
     }
 
 

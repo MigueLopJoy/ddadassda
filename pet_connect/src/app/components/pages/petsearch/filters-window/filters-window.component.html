@@ -1,9 +1,9 @@
-<div class="absolute bg-white top-0 left-0 w-full h-screen">
-    <div class="relative w-full h-full p-4">
+<div class="absolute bg-white top-0 left-0 bottom-0 w-full">
+    <div class="relative w-full h-screen p-4 pt-16">
 
         <div class="absolute top-4 right-4">
             <button type="button" class="relative p-2" aria-controls="mobile-menu" aria-expanded="false">
-            
+
                 <span class="absolute -inset-0.5" (click)="closeWindow()"></span>
 
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -14,11 +14,12 @@
             </button>
         </div>
 
+        <div class="mb-2" style="height:90%;">
+            <app-filters-form></app-filters-form>
+        </div>
 
-        <form action=""></form>
-
-        <div class="absolute bottom-8 right-4 left-4">
+        <div>
             <button class="btn btn-sky w-full">Mostrar resultados</button>
         </div>
-    </div>            
+    </div>
 </div>
