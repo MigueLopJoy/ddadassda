@@ -1,0 +1,27 @@
+<div class="relative ">
+    <label for="breed" class="block font-semibold mb-2">Raza:</label>
+    <input type="text" class="w-full px-4 py-2 border rounded-lg outline-none" placeholder="Cualquier raza" [(ngModel)]="searchText" (input)="onSearchChange(searchText)">
+    @if (searchText) {
+        <div class="absoulte w-full bg-white border border-t-0 border-gray-200 rounded-lg max-h-80 overflow-y-auto z-10 p-6">
+            @for (breed of filteredBreeds; track breed) {
+                <app-checkbox [labelText]="breed" class="block mb-4"></app-checkbox>
+            }
+        </div>
+    }
+    @if (selectedBreeds.length > 0) {
+        <div class="py-4">
+            <div class="border border-gray-300 w-full">
+                @for (selectedBreed of selectedBreeds; track selectedBreed) {
+                    <div class="bg-sky-300">
+                        <span>
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                            </svg>
+                        </span>
+                        {{selectedBreed}}
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
