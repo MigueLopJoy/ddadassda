@@ -9,7 +9,9 @@ module.exports = {
         'sans': ['Poppins', 'system-ui'],
         'serif': ['ui-serif', 'Georgia'],
         'mono': ['ui-monospace', 'SFMono-Regular'],
-        'heading': ['PoppinsBlack']
+        'heading': ['PoppinsBlack'],
+        'popBold': ['PoppinsBold'],
+        'popSemiBold': ['PoppinsSemiBold']
       }
     },
   },

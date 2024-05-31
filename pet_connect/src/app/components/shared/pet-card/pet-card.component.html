@@ -1,10 +1,10 @@
-<div class="shadow-lg rounded-md">
+<div class="shadow-lg border border-slate-300 rounded-md">
     <div>
         <img class="rounded-t-md" src="{{pet.image}}" alt="Pet 4">
     </div>
     <div class="p-6">
-        <h4 class="text-sky-600 font-semibold text-xl text-center mb-4">{{pet.name}}</h4>
-        <div class="flex items-center justify-center gap-6 text-sm mb-2 text-center">
+        <h4 class="text-sky-600 font-semibold text-xl text-center mb-2">{{pet.name}}</h4>
+        <div class="flex items-center justify-center gap-6 text-sm mb-4 text-center">
             <span>{{pet.breed}}</span>
             <span>{{pet.birthDay | ageFormat}}</span>
             <span>
@@ -33,6 +33,9 @@
                 </svg>
                 }
             </span>
+        </div>
+        <div class="w-full">
+            <button class="btn btn-sky w-full" (click)="showPetPage()">Saber Más</button>
         </div>
     </div>
 </div>

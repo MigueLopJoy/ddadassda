@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="mb-6">
-            <app-breed-selector></app-breed-selector>
+            <app-breed-selector (breeds)="selectBreeds($event)"></app-breed-selector>
         </div>
         <div class="mb-6">
             <label class="block text-gray-800 font-semibold mb-2">Estado de Salud:</label>

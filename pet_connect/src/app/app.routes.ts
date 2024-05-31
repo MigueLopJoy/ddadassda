@@ -1,15 +1,17 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
-import { PetsearchComponent } from './components/pages/petsearch/petsearch.component';
+import { PetDetailsComponent } from './components/pages/pet-details/pet-details.component';
 
 export const routes: Routes = [
     {
-        path: '', redirectTo: 'home', pathMatch: 'full'
+        path: '', redirectTo: 'mascotas', pathMatch: 'full'
     },
     {
         path: 'home', component: HomeComponent
     },
     {
-        path: 'buscar-mascota', component: PetsearchComponent
+        path: 'mascotas', 
+        component: PetDetailsComponent
+        // loadChildren: () => import("./components/pages/petsearch/petsearch.routes").then(c => c.PETS_ROUTES)
     }
 ];

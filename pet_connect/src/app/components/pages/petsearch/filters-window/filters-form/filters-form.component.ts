@@ -13,6 +13,7 @@ export class FiltersFormComponent {
 
   animalType!: string;
   sex!: number;
+  breeds!: string[];
 
   selectAnimal(animalType: string) {
     this.animalType = animalType;
@@ -20,5 +21,9 @@ export class FiltersFormComponent {
 
   selectSex(sex: number) {
     this.sex = sex;
+  }
+
+  selectBreeds(breeds: string[]) {
+    this.breeds = breeds;
   }
 }

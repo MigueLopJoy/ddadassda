@@ -10,7 +10,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
   styleUrl: './petsearch.component.css'
 })
 export class PetsearchComponent {
-  showFiltersWindow: boolean = true;
+  showFiltersWindow: boolean = false;
   
 
   toggleFiltersWindow() {

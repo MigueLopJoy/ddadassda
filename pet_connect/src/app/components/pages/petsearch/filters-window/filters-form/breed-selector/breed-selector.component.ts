@@ -1,20 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../../../../../shared/checkbox/checkbox.component';
+import { ClickOutsideDirective } from '../../../../../../core/directives/click-outside/click-outside.directive';
 
 @Component({
   selector: 'app-breed-selector',
   standalone: true,
-  imports: [FormsModule, CheckboxComponent],
+  imports: [FormsModule, CheckboxComponent, ClickOutsideDirective],
   templateUrl: './breed-selector.component.html',
   styleUrl: './breed-selector.component.css'
 })
 export class BreedSelectorComponent {
 
+  constructor() {}
+
+  @Output() breeds: EventEmitter<string[]> = new EventEmitter<string[]>;
+
+  isInputFocused: boolean = false;
   searchText: string = "";
   selectedBreeds: string[] = [];
-  filteredBreeds: string[] = [];
   dogBreeds: string[] = [
+    "Todas",
     "Labrador",
     "Golden Retriever",
     "Pastor Alemán",
@@ -54,19 +60,42 @@ export class BreedSelectorComponent {
     "Bull Terrier",
     "Boyero de Berna"
   ];
+  filteredBreeds: string[] = this.dogBreeds;
+
 
   onSearchChange(searchValue: string) {
     const normalizedSearchValue = this.normalizeString(searchValue);
     this.filteredBreeds = this.dogBreeds.filter(breed => {
-      console.log(this.normalizeString(breed))
-      console.log(this.normalizeString(breed).includes(normalizedSearchValue))
       return this.normalizeString(breed).includes(normalizedSearchValue);
     })  
-    
   }
 
   normalizeString(str: string): string {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  toggleBreedCheck(selected: boolean, breed: string) {
+    if (breed === 'Todas') {
+      this.filteredBreeds = this.dogBreeds;
+    } else {
+      if (selected) this.selectedBreeds.push(breed);
+      else {
+        let breedIndex = this.selectedBreeds.indexOf(breed);
+        if (breedIndex > -1) {
+          console.log(breedIndex)
+          this.selectedBreeds.splice(breedIndex, 1)
+        }
+      }
+    }
+    this.breeds.emit(this.selectedBreeds);
+  }
+
+  showDropDown() {
+    this.isInputFocused = true;
+  }
+
+  onClickedOutside() {
+    this.isInputFocused = false;
   }
 
 }

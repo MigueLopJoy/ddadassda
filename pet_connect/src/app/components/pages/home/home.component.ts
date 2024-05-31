@@ -15,7 +15,7 @@ export class HomeComponent {
   ) {}
 
   redirect() {
-    this.router.navigate(['/buscar-mascota'])
+    this.router.navigate(['/mascotas'])
   }
 
 }
