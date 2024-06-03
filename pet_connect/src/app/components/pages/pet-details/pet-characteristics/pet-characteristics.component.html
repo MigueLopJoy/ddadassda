@@ -1,0 +1,31 @@
+<div class="">
+    <h4 class="font-bold text-md text-gray-800 mb-4">Soy...</h4>
+
+    <div class="flex flex-wrap gap-2">
+
+        @for (characteristic of characteristicKeys; track characteristic) {
+        @if (isCharacteristicTrue(characteristic.valueOf())) {
+        <div class="inline-block bg-sky-200 flex items-center gap-1 rounded-md border-gray-200 p-1 px-2">
+            <span>
+                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path fill="rgb(55 65 81)"
+                        d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+                </svg>
+            </span>
+            <span class="text-xs text-gray-700">{{characteristic}}</span>
+        </div>
+        } @else {
+        <div class="inline-block bg-rose-200 flex items-center gap-1 rounded-md border-gray-200 p-1 px-2">
+            <span>
+                <svg class="w-3 h-3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M4.70718 2.58574C4.31666 2.19522 3.68349 2.19522 3.29297 2.58574L2.58586 3.29285C2.19534 3.68337 2.19534 4.31654 2.58586 4.70706L9.87877 12L2.5859 19.2928C2.19537 19.6834 2.19537 20.3165 2.5859 20.7071L3.293 21.4142C3.68353 21.8047 4.31669 21.8047 4.70722 21.4142L12.0001 14.1213L19.293 21.4142C19.6835 21.8047 20.3167 21.8047 20.7072 21.4142L21.4143 20.7071C21.8048 20.3165 21.8048 19.6834 21.4143 19.2928L14.1214 12L21.4143 4.70706C21.8048 4.31654 21.8048 3.68337 21.4143 3.29285L20.7072 2.58574C20.3167 2.19522 19.6835 2.19522 19.293 2.58574L12.0001 9.87865L4.70718 2.58574Z"
+                        fill="rgb(55 65 81)" />
+                </svg>
+            </span>
+            <span class="text-xs text-gray-700">{{characteristic}}</span>
+        </div>
+        }
+        }
+    </div>
+</div>

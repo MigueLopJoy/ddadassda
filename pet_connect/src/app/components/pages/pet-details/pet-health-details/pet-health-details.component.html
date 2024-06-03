@@ -1,0 +1,32 @@
+<div>
+    <h4 class="font-bold text-md text-gray-800 mb-4">Sobre mi salud</h4>
+
+    <div>
+        @for (healthDetail of petHealthDetails; track healthDetail) {
+        <div class="flex items-center gap-2 px-2"
+            [ngClass]="{'pb-2 mb-2 border-b border-gray-100': !isLastElement(healthDetail)}">
+            <span>
+                <svg class="w-4 h-4" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgb(251 113 133)" d=" M29.125 10.375h-7.5v-7.5c0-1.036-0.839-1.875-1.875-1.875h-7.5c-1.036 0-1.875 0.84-1.875
+                            1.875v7.5h-7.5c-1.036 0-1.875 0.84-1.875 1.875v7.5c0 1.036 0.84 1.875 1.875 1.875h7.5v7.5c0
+                            1.036 0.84 1.875 1.875 1.875h7.5c1.036 0 1.875-0.84 1.875-1.875v-7.5h7.5c1.035 0 1.875-0.839
+                            1.875-1.875v-7.5c0-1.036-0.84-1.875-1.875-1.875z">
+                    </path>
+                </svg>
+            </span>
+            <span class="text-gray-700 text-sm">{{healthDetail}}</span>
+        </div>
+        } @empty {
+        <div class="flex items-center gap-2 px-2">
+            <span>
+                <svg class="w-4 h-4" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgb(2 132 199)"
+                        d="M29.125 10.375h-7.5v-7.5c0-1.036-0.839-1.875-1.875-1.875h-7.5c-1.036 0-1.875 0.84-1.875 1.875v7.5h-7.5c-1.036 0-1.875 0.84-1.875 1.875v7.5c0 1.036 0.84 1.875 1.875 1.875h7.5v7.5c0 1.036 0.84 1.875 1.875 1.875h7.5c1.036 0 1.875-0.84 1.875-1.875v-7.5h7.5c1.035 0 1.875-0.839 1.875-1.875v-7.5c0-1.036-0.84-1.875-1.875-1.875z">
+                    </path>
+                </svg>
+            </span>
+            <span class="text-gray-800 text-sm">Sin problemas de salud</span>
+        </div>
+        }
+    </div>
+</div>

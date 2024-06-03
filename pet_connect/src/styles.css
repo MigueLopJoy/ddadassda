@@ -37,13 +37,13 @@
   @apply font-bold py-3 px-6 rounded font-semibold;
 }
 .btn-sky {
-  @apply bg-sky-600 text-slate-200;
+  @apply bg-sky-600 text-slate-100;
 }
 .btn-sky:hover {
   @apply bg-sky-500 text-slate-50;
 }
 .btn-light {
-  @apply border border-sky-600 text-gray-600;
+  @apply border border-sky-600 text-sky-600;
 }
 .btn-light:hover {
   @apply bg-sky-500 text-slate-50;

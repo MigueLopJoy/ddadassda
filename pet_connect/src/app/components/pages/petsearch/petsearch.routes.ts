@@ -4,12 +4,9 @@ import { PetDetailsComponent } from "../pet-details/pet-details.component";
 
 export const PETS_ROUTES: Routes = [
     {
-        path: '', redirectTo: 'mascotas', pathMatch: 'full'
-    },
-    {
-        path: 'mascotas', component: PetsearchComponent
+        path: '', component: PetsearchComponent
     }, 
     {
-        path: 'mascotas/:slug', component: PetDetailsComponent
+        path: ':slug', component: PetDetailsComponent
     }
 ];

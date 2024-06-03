@@ -2,20 +2,19 @@
     <h3 class="font-bold text-2xl mb-6 text-gray-800">Filtros de búsqueda</h3>
     <form id="searchForm">
         <div class="mb-6">
-            <label class="block font-semibold mb-2 text-gray-800">Estoy buscando...</label>
-            <div class="w-100 flex justify-between gap-4">
-                <button type="button" class="w-1/3 btn btn-light" (click)="selectAnimal('perro')">Perro</button>
-                <button type="button" class="w-1/3 px-4 py-2 btn btn-light "
-                    (click)="selectAnimal('gato')">Gato</button>
-                <button type="button" class="w-1/3 px-4 py-2 btn btn-light "
-                    (click)="selectAnimal('otro')">Otro</button>
+            <label class="block font-semibold mb-4 text-gray-800">Estoy buscando...</label>
+            <div class="w-100 flex flex-col gap-4">
+                <button type="button" class="btn btn-light" (click)="selectAnimal('perro')">Perro</button>
+                <button type="button" class="px-4 py-2 btn btn-light " (click)="selectAnimal('gato')">Gato</button>
+                <button type="button" class="px-4 py-2 btn btn-light " (click)="selectAnimal('otro')">Otro</button>
             </div>
             <input type="hidden" value="{{animalType}}">
         </div>
         <div class="mb-6">
-            <label for="sex" class="block font-semibold text-gray-800 mb-2">Sexo:</label>
+            <label for="sex" class="block font-semibold text-gray-800 mb-4">Sexo:</label>
             <div class="w-full flex gap-4 items-center">
-                <button type="button" class="w-3/6 btn btn-light flex items-center justify-center" (click)="selectSex(0)">
+                <button type="button" class="w-3/6 btn btn-light flex items-center justify-center"
+                    (click)="selectSex(0)">
                     <svg class="h-6 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 345.6 345.6">
                         <path fill="rgb(2 132 199)" d="M336.843,8.927c-5.959-5.976-14.148-9.174-22.594-8.787L211.774,4.758c-16.551,0.746-29.365,14.769-28.619,31.32
                             c0.746,16.552,14.789,29.342,31.32,28.619l24.955-1.125l-32.602,32.602c-21.324-13.469-46.053-20.681-71.893-20.681
@@ -43,7 +42,7 @@
             <input type="hidden" value="{{sex}}">
         </div>
         <div class="mb-6">
-            <label for="age" class="block font-semibold mb-2 text-gray-800">Edad:</label>
+            <label for="age" class="block font-semibold mb-4 text-gray-800">Edad:</label>
             <div class="ps-2">
                 <app-checkbox [labelText]="'Cachorro (Hasta 1 año)'" class="block mb-4"></app-checkbox>
                 <app-checkbox [labelText]="'Joven (De 1 a 3 años)'" class="block mb-4"></app-checkbox>
@@ -52,7 +51,7 @@
             </div>
         </div>
         <div class="mb-6">
-            <label for="size" class="block font-semibold mb-2 text-gray-800">Tamaño:</label>
+            <label for="size" class="block font-semibold mb-4 text-gray-800">Tamaño:</label>
             <div class="ps-2">
                 <app-checkbox [labelText]="'Pequeño'" class="block mb-4"></app-checkbox>
                 <app-checkbox [labelText]="'Mediano'" class="block mb-4"></app-checkbox>
