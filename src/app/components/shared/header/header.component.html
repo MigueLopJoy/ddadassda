@@ -43,13 +43,20 @@
 
     @if (isMenuOpen) {
     <div class="sm:hidden">
-        <div class="space-y-1 px-2 pb-3 pt-2">
-            <a routerLink="/home" class="bg-sky-600 text-white block rounded-md px-3 py-2 text-base font-medium"
-                aria-current="page">Inicio</a>
-            <a routerLink="/mascotas"
-                class="text-gray-700 hover:bg-sky-600 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
-                Encuentra tu mascota
-            </a>
+        <div class="bg-white rounded p-4 py-6 shadow-lg">
+            @for (menuItem of menuItems; track menuItem; let index = $index) {
+                <a routerLink="{{menuItem.route}}" 
+                    class="block rounded-md p-4 font-semibold"
+                    (click)="changeActiveLink(index)"
+                    [ngClass]="{
+                        'bg-sky-200': currentLink === index, 
+                        'text-gray-600': currentLink !== index, 
+                        'mb-4 border-b border-gray-200': index === menuItems.length - 2
+                    }"
+                >
+                    {{menuItem.label}}
+                </a>
+            }            
         </div>
     </div>
     }

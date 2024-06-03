@@ -4,16 +4,20 @@ import { ShelterComponent } from './components/pages/shelter/shelter.component';
 
 export const routes: Routes = [
     {
-        path: '', redirectTo: 'shelter', pathMatch: 'full'
+        path: '', redirectTo: 'inicio', pathMatch: 'full'
     },
     {
-        path: 'home', component: HomeComponent
+        path: 'inicio', component: HomeComponent
     },
     {
         path: 'mascotas', 
         loadChildren: () => import("./components/pages/petsearch/petsearch.routes").then(c => c.PETS_ROUTES)
     },
     {
-        path: 'shelter', component: ShelterComponent
+        path: 'asociaciones', component: ShelterComponent    
+    },
+    {
+        path: 'auth', 
+        loadChildren: () => import("./components/pages/auth/auth.routes").then(c => c.AUTH_ROUTES)
     }
 ];
