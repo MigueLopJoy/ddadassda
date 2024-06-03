@@ -1,7 +1,7 @@
 <section class="px-6">
-    <div class="py-6 flex flex-col items-center border-b border-gray-300">
-        <div class="w-full ms-12">
-            <ul class="w-full flex justify-start gap-4">
+    <div class="py-6 border-b border-gray-300">
+        <div class="w-full pe-4">
+            <ul class="w-full flex justify-end gap-4">
                 <li class="text-xs text-slate-100 mb-2 cursor-pointer hover:text-slate-200">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-3">
                         <path fill="rgb(2 132 199)"
@@ -28,19 +28,23 @@
                 </li>
             </ul>
         </div>
-        <div class="w-2/3 h-auto aspect-square border rounded-full text-center mb-4">
-            <img src="assets/resources/shelters/shelter-logo.png" alt="Logotipo de la Asociación"
-                class="w-full object-cover">
+        
+        <div class="flex flex flex-col items-center ">
+            <div class="w-2/3 h-auto aspect-square border rounded-full text-center mb-4">
+                <img src="assets/resources/shelters/shelter-logo.png" alt="Logotipo de la Asociación"
+                    class="w-full object-cover">
+            </div>
+            <div class="text-center">
+                <h2 class="text-3xl font-popBold text-gray-700 mb-2">Patitas Solidarias</h2>
+                <p class="text-md text-gray-700">Asociación de protección animal de Encinas Reales.</p>
+            </div>
         </div>
-        <div class="text-center">
-            <h2 class="text-3xl font-popBold text-gray-700 mb-2">Patitas Solidarias</h2>
-            <p class="text-md text-gray-700">Asociación de protección animal de Encinas Reales.</p>
-        </div>
+
     </div>
 </section>
 
 <section class="px-6">
-    <div class="px-4 py-8 border-b border-gray-300">
+    <div class="px-4 py-8 border-b border-gray-200">
         <div class="flex items-center gap-4 mb-4">
             <span>
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,33 +106,45 @@
     </div>
 </section>
 
-<div class="container mx-auto p-6 shadow-lg">
+<section>
+    <div class="px-6 py-8">
+        <div class="mb-4">
+            <h3 class="font-popBold text-2xl text-gray-700">¡Contáctanos!</h3>
+        </div>
 
-    <!-- Formulario de Contacto -->
-    <div class="max-w-lg mx-auto bg-gray-100 p-8 rounded-lg shadow-md my-6">
-        <form>
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
-                <input type="text" id="name"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required>
+        <div class="text-center mb-6 py-6">
+                <div class="bg-gray-100 shadow-lg">
+                    <div class="mb-4">
+                        <iframe class="h-72 border-none w-full max-w-full rounded"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6349.725755905245!2d-4.493535357201256!3d37.274678575865764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6d7c22ee2d5531%3A0xd8ba42ef181428d6!2s14913%20Encinas%20Reales%2C%20C%C3%B3rdoba!5e0!3m2!1sen!2ses!4v1717241455357!5m2!1sen!2ses"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <div class="p-8 pb-12 rounded-lg">
+                        <form>
+                            <div class="mb-4">
+                                <input type="text" id="name"
+                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    required placeholder="Nombre">
+                            </div>
+                            <div class="mb-4">
+                                <input type="email" id="email"
+                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    required placeholder="Correo electrónico">
+                            </div>
+                            <div class="mb-4">
+                                <textarea id="message" rows="4"
+                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    required placeholder="Escribe tu mensaje"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="btn btn-sky w-full">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required>
-            </div>
-            <div class="mb-4">
-                <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
-                <textarea id="message" rows="4"
-                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required></textarea>
-            </div>
-            <div class="text-center">
-                <button type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700">Enviar</button>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+</section>
