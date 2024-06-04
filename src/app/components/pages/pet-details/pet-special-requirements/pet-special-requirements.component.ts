@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import { PetSpecialRequirement } from '../../../../core/model/interfaces/pets/petSpecialRequirements';
 
 @Component({
   selector: 'app-pet-special-requirements',
@@ -10,33 +11,13 @@ import { Component } from '@angular/core';
 })
 export class PetSpecialRequirementsComponent {
 
-  petSpecialRequirements: string[] = [
+  petSpecialRequirements: PetSpecialRequirement[] = [
     "Hogar sin perros",
     "Hogar sin otros animales",
     "Adaptación gradual"
   ];
 
-  allSpecialRequirements: string[] = [
-    "Seguro PPP",
-    "Casa con patio o jardín amplio",
-    "Elevada actividad física",
-    "Experiencia previa",
-    "Conocimientos en adiestramiento",
-    "Entrenamiento con adiestrador",
-    "Presupuesto para cuidados especiales",
-    "Acceso a atención veterinaria especializada",
-    "Hogar sin perros",
-    "Hogar sin gatos",
-    "Hogar sin otros animales",
-    "Hogar sin niños",
-    "Preferencia por hogar con otros perros",
-    "Elevada disponibilidad de tiempo",
-    "Adaptación gradual",
-    "Recogida en persona",
-    "Adopción de cercanía"
-  ]
-
-  isLastElement(element: string) {
+  isLastElement(element: PetSpecialRequirement) {
     return !(this.petSpecialRequirements.indexOf(element) < (this.petSpecialRequirements.length - 1))
   }
 }

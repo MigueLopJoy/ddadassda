@@ -1,10 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import { PetCardComponent } from '../../../shared/pet-card/pet-card.component';
 
 @Component({
   selector: 'app-pets-carousel',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, PetCardComponent],
   templateUrl: './pets-carousel.component.html',
   styleUrl: './pets-carousel.component.css'
 })

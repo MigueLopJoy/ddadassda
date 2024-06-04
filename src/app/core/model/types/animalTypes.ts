@@ -1,0 +1,1 @@
+export type AnimalType = 'Dog' | 'Cat' | 'Other';

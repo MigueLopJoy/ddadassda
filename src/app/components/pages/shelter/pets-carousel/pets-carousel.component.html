@@ -5,6 +5,7 @@
         <div [ngClass]="{'hidden': currentIndex !== index, 'block': currentIndex === index}"
             class="duration-700 ease-in-out" data-carousel-item>
             <img src="{{pet.src}}" alt="{{pet.alt}}" class="block w-full object-cover aspect-square">
+            <app-pet-card [pet]="pet"></app-pet-card>
         </div>
         }
     </div>
@@ -14,8 +15,7 @@
             class="flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
             <span (click)="onPrev()"
                 class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-200">
-                <svg class="w-4 h-4 text-white"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 1 1 5l4 4" />
                 </svg>
@@ -33,8 +33,7 @@
             class="flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
             <span (click)="onNext()"
                 class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-slate-200">
-                <svg class="w-4 h-4 text-white"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <svg class="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m1 9 4-4-4-4" />
                 </svg>

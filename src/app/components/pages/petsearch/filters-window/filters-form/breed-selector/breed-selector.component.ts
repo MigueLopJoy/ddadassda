@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../../../../../shared/checkbox/checkbox.component';
 import { ClickOutsideDirective } from '../../../../../../core/directives/click-outside/click-outside.directive';
+import { DogBreed } from '../../../../../../core/model/types/dogBreeds';
+import { CatBreed } from '../../../../../../core/model/types/catBreeds';
+import { AnimalType } from '../../../../../../core/model/types/animalTypes';
 
 @Component({
   selector: 'app-breed-selector',
@@ -14,13 +17,9 @@ export class BreedSelectorComponent {
 
   constructor() {}
 
+  @Input() animalType: AnimalType | null = null;
   @Output() breeds: EventEmitter<string[]> = new EventEmitter<string[]>;
-
-  isInputFocused: boolean = false;
-  searchText: string = "";
-  selectedBreeds: string[] = [];
-  dogBreeds: string[] = [
-    "Todas",
+  dogBreeds: DogBreed[] = [
     "Labrador",
     "Golden Retriever",
     "Pastor Alemán",
@@ -60,7 +59,20 @@ export class BreedSelectorComponent {
     "Bull Terrier",
     "Boyero de Berna"
   ];
-  filteredBreeds: string[] = this.dogBreeds;
+  catBreeds: CatBreed[] = [
+    "Azul ruso",
+    "Bengalí",
+    "Bosque de noruega",
+    "Común europeo", 
+    "Egipcio",
+    "Persa",
+    "Siamés",
+    "Siberiano"
+  ];
+  selectedBreeds: string[] = [];
+  filteredBreeds: string[] = [];
+  isInputFocused: boolean = false;
+  searchText: string = "";
 
 
   onSearchChange(searchValue: string) {
