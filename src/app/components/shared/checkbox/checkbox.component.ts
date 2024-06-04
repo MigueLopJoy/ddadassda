@@ -9,7 +9,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './checkbox.component.css'
 })
 export class CheckboxComponent {
+
   @Input() labelText!: string;
+  @Input() disabled: boolean = false;
   @Output() checkChange: EventEmitter<boolean> = new EventEmitter<boolean>;
   checked: boolean = false;
 

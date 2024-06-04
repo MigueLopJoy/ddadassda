@@ -27,6 +27,7 @@ export class HeaderComponent {
 
   changeActiveLink(clickedLink: number) {
     this.currentLink = clickedLink;
+    this.isMenuOpen = false;
   }
 
 }

@@ -1,1 +1,1 @@
-export type Sex = 'macho' | 'hembra';
+export type Sex = 'Macho' | 'Hembra';

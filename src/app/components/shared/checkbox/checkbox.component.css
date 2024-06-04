@@ -1,21 +1,17 @@
-/* Checkbox checked */
 input:checked ~ .checkmark {
     background-color: #2196F3;
 }
 
-/* Checkbox checkmark */
 .checkmark::after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show checkmark when checked */
 input:checked ~ .checkmark::after {
   display: block;
 }
 
-/* Styles for checkmark */
 .checkmark::after {
   left: 0.5rem;
   top: 0.25rem; 

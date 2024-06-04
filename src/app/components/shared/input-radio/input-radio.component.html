@@ -1,0 +1,13 @@
+<div class="w-full">
+    <label class="block w-full btn text-center relative" 
+           [ngClass]="{'border border-sky-600 text-sky-600': !checked, 'bg-sky-600 text-slate-100': checked}">
+        <input type="checkbox" name="option" value="{{inputValue}}" class="absolute opacity-0 cursor-pointer" (change)="onChange()">
+        <span 
+            [innerHTML]="labelContentHTML" 
+            class="w-100 flex items-center justify-center"
+            [ngClass]="{'checked': checked}"
+            #container
+        >
+        </span>
+    </label>
+</div>

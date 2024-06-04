@@ -34,7 +34,7 @@
 
 
 .btn {
-  @apply font-bold py-3 px-6 rounded font-semibold;
+  @apply py-3 px-6 rounded font-semibold;
 }
 .btn-sky {
   @apply bg-sky-600 text-slate-100;
