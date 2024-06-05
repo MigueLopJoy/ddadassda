@@ -7,7 +7,7 @@ import { Size } from "./size";
 export interface PetDetails {
     animalType: AnimalType,
     sex: Sex
-    age: number,
+    birthDate: string,
     size: Size,
     breed: DogBreed | CatBreed | null,
 }

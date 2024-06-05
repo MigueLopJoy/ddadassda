@@ -93,7 +93,7 @@ export class PetInfoComponent {
   petDetails: PetDetails = {
     animalType: 'Perro',
     sex: 'Macho',
-    age: 2,
+    birthDate: "01/06/2022",
     size: 'Grande',
     breed: 'Pastor Alemán',
   }
@@ -107,7 +107,7 @@ export class PetInfoComponent {
     healthDetails: this.healthDetails,
     specialRequirements: this.specialRequirements,
     shelter: this.shelter,
-    imageURL: 'assets/imgs/pets/pet1.png'
+    imageURL: 'assets/imgs/pets/pet4.png'
   }; 
 
   getObjectEntries(obj: Object) {

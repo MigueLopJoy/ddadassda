@@ -1,11 +1,21 @@
 <div class="">
     <div class="mb-6">
-        @for (entry of getPetDetailsWithoutAnimalType(petDetails) | objectEntries; track entry) {
         <div class="flex justify-between pb-2 px-2 mb-2 border-b border-gray-100">
-            <h6 class="text-gray-800 text-sm font-semibold">{{entry[0]}}</h6>
-            <span class="text-gray-800 text-sm text-end">{{entry[1]}}</span>
+            <h6 class="text-gray-800 text-sm font-semibold">Sexo: </h6>
+            <span class="text-gray-800 text-sm text-end">{{petDetails.sex}}</span>
         </div>
-        }
+        <div class="flex justify-between pb-2 px-2 mb-2 border-b border-gray-100">
+            <h6 class="text-gray-800 text-sm font-semibold">Edad: </h6>
+            <span class="text-gray-800 text-sm text-end">{{petDetails.birthDate | ageFormat}}</span>
+        </div>
+        <div class="flex justify-between pb-2 px-2 mb-2 border-b border-gray-100">
+            <h6 class="text-gray-800 text-sm font-semibold">Tamaño: </h6>
+            <span class="text-gray-800 text-sm text-end">{{petDetails.size}}</span>
+        </div>
+        <div class="flex justify-between pb-2 px-2 mb-2 border-b border-gray-100">
+            <h6 class="text-gray-800 text-sm font-semibold">Raza: </h6>
+            <span class="text-gray-800 text-sm text-end">{{petDetails.breed}}</span>
+        </div>
     </div>
     <div class="w-full flex flex-col gap-4">
         <div class="max-w-80">
