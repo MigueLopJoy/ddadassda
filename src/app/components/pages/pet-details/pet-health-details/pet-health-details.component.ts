@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { PetHealthDetail } from '../../../../core/model/interfaces/pets/petHealthDetails';
+import { Component, Input } from '@angular/core';
+import { PetHealthDetail } from '../../../../core/model/pets/petHealthDetails';
 
 @Component({
   selector: 'app-pet-health-details',
@@ -11,10 +11,7 @@ import { PetHealthDetail } from '../../../../core/model/interfaces/pets/petHealt
 })
 export class PetHealthDetailsComponent {
 
-  petHealthDetails: PetHealthDetail[] = [
-    "Cuidado constante del pelaje",
-    "Productos específicos para piel y pelaje"
-  ]
+  @Input() petHealthDetails!: PetHealthDetail[];
 
   isLastElement(element: PetHealthDetail) {
     return !(this.petHealthDetails.indexOf(element) < (this.petHealthDetails.length - 1))

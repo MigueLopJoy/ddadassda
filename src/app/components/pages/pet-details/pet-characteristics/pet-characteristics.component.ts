@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PetCharacteristic } from '../../../../core/model/interfaces/pets/petCharacteristics';
+import { PetCharacteristic } from '../../../../core/model/pets/petCharacteristics';
 
 @Component({
   selector: 'app-pet-characteristics',

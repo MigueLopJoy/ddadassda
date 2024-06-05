@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Shelter } from '../../../../core/model/shelter/shelter';
 
 @Component({
   selector: 'app-pet-location-card',
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class PetLocationCardComponent {
 
+  @Input() shelter!: Shelter;
 }

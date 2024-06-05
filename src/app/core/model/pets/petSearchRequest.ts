@@ -1,8 +1,8 @@
-import { AnimalType } from "../../types/animalTypes"
-import { CatBreed } from "../../types/catBreeds"
-import { DogBreed } from "../../types/dogBreeds"
-import { Sex } from "../../types/sex"
-import { Shelter } from "../shelter"
+import { AnimalType } from "./animalTypes"
+import { CatBreed } from "./catBreeds"
+import { DogBreed } from "./dogBreeds"
+import { Sex } from "./sex"
+import { Shelter } from "../shelter/shelter"
 import { PetHealthDetail } from "./petHealthDetails"
 
 export interface PetSearchRquest {

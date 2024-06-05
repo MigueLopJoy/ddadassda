@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { AnimalType } from '../../../core/model/types/animalTypes';
+import { AnimalType } from '../../../core/model/pets/animalTypes';
 import { NgClass } from '@angular/common';
-import { Sex } from '../../../core/model/types/sex';
+import { Sex } from '../../../core/model/pets/sex';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({

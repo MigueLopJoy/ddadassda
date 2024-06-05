@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../../../../../shared/checkbox/checkbox.component';
 import { ClickOutsideDirective } from '../../../../../../core/directives/click-outside/click-outside.directive';
-import { DogBreed } from '../../../../../../core/model/types/dogBreeds';
-import { CatBreed } from '../../../../../../core/model/types/catBreeds';
-import { AnimalType } from '../../../../../../core/model/types/animalTypes';
+import { DogBreed } from '../../../../../../core/model/pets/dogBreeds';
+import { CatBreed } from '../../../../../../core/model/pets/catBreeds';
+import { AnimalType } from '../../../../../../core/model/pets/animalTypes';
 
 @Component({
   selector: 'app-breed-selector',

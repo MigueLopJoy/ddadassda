@@ -2,10 +2,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CheckboxComponent } from '../../../../shared/checkbox/checkbox.component';
 import { BreedSelectorComponent } from './breed-selector/breed-selector.component';
 import { FormBuilder } from '@angular/forms';
-import { PetSearchRquest } from '../../../../../core/model/interfaces/pets/petSearchRequest';
+import { PetSearchRquest } from '../../../../../core/model/pets/petSearchRequest';
 import { InputRadioComponent } from '../../../../shared/input-radio/input-radio.component';
-import { AnimalType } from '../../../../../core/model/types/animalTypes';
-import { Sex } from '../../../../../core/model/types/sex';
+import { AnimalType } from '../../../../../core/model/pets/animalTypes';
+import { Sex } from '../../../../../core/model/pets/sex';
 
 @Component({
   selector: 'app-filters-form',

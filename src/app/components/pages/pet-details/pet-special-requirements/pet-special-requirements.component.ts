@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { PetSpecialRequirement } from '../../../../core/model/interfaces/pets/petSpecialRequirements';
+import { Component, Input } from '@angular/core';
+import { PetSpecialRequirement } from '../../../../core/model/pets/petSpecialRequirements';
 
 @Component({
   selector: 'app-pet-special-requirements',
@@ -11,11 +11,7 @@ import { PetSpecialRequirement } from '../../../../core/model/interfaces/pets/pe
 })
 export class PetSpecialRequirementsComponent {
 
-  petSpecialRequirements: PetSpecialRequirement[] = [
-    "Hogar sin perros",
-    "Hogar sin otros animales",
-    "Adaptación gradual"
-  ];
+  @Input() petSpecialRequirements!: PetSpecialRequirement[];
 
   isLastElement(element: PetSpecialRequirement) {
     return !(this.petSpecialRequirements.indexOf(element) < (this.petSpecialRequirements.length - 1))

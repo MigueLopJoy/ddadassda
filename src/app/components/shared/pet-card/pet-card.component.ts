@@ -18,6 +18,6 @@ export class PetCardComponent {
   @Input() pet!: any;
 
   showPetPage() {
-    this.router.navigate(["/buscar-mascota/mascota"])
+    this.router.navigate(["/mascotas/mascota"])
   }
 }

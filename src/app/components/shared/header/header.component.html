@@ -2,14 +2,14 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b">
         <div class="flex h-16 items-center justify-between">
             <div class="w-40">
-                <a routerLink="/home">
+                <a routerLink="/inicio">
                     <img class="w-auto" src="assets/brand/logo.svg" alt="App Logo">
                 </a>
             </div>
 
             <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-4">
-                    <a routerLink="/home" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    <a routerLink="/inicio" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium"
                         aria-current="page">Inicio</a>
                     <a routerLink="/buscar-mascota"
                         class="text-gray-700 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Encuentra
@@ -45,18 +45,15 @@
     <div class="sm:hidden">
         <div class="bg-white rounded p-4 py-6 shadow-lg">
             @for (menuItem of menuItems; track menuItem; let index = $index) {
-                <a routerLink="{{menuItem.route}}" 
-                    class="block rounded-md p-4 font-semibold"
-                    (click)="changeActiveLink(index)"
-                    [ngClass]="{
+            <a routerLink="{{menuItem.route}}" class="block rounded-md p-4 font-semibold"
+                (click)="changeActiveLink(index)" [ngClass]="{
                         'bg-sky-200': currentLink === index, 
                         'text-gray-600': currentLink !== index, 
                         'mb-4 border-b border-gray-200': index === menuItems.length - 2
-                    }"
-                >
-                    {{menuItem.label}}
-                </a>
-            }            
+                    }">
+                {{menuItem.label}}
+            </a>
+            }
         </div>
     </div>
     }
