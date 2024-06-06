@@ -1,9 +1,11 @@
-<header class="p-relative">
-    <app-header></app-header>
-</header>
-<main class="pt-16">
-    <router-outlet></router-outlet>
-</main>
-<footer>
-    <app-footer></app-footer>
-</footer>
+<div class="flex flex-col min-h-screen">
+    <header class="p-relative">
+        <app-header></app-header>
+    </header>
+    <main class="pt-16 grow flex justify-center">
+        <router-outlet></router-outlet>
+    </main>
+    <footer>
+        <app-footer></app-footer>
+    </footer>
+</div>

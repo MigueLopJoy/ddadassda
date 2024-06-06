@@ -19,20 +19,28 @@ export class GoogleMapComponent {
   @Input() height!: number;
   @Input() widht!: number;
   options!: google.maps.MapOptions;
+  location!: google.maps.LatLngLiteral;
 
-  ngOnInit() {
+  getAddressGeolocation() {
     const addressString = `${this.address.postalCode} ${this.address.street} ${this.address.city} ${this.address.province}`;
 
     this.geocoder.geocode({
       address: addressString
     }).subscribe(({results}) => {
+      
+      this.location = {
+        lat: results[0].geometry.location.lat(),
+        lng: results[0].geometry.location.lng()
+      }
+
       this.options = {
-        center: {
-          lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng()
-        },
+        center: this.location,
         zoom: 14 
       }
-    });  
+    }); 
+  }
+
+  ngOnInit() {
+    this.getAddressGeolocation();
   }
 }
