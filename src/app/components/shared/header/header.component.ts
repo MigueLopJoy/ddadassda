@@ -17,7 +17,6 @@ export class HeaderComponent {
     {label: 'Asociaciones', route: '/asociaciones'},
     {label: 'Iniciar sesión', route: '/auth'},
   ]
-
   isMenuOpen: boolean = false;
   currentLink: number = 0;
 
@@ -27,6 +26,10 @@ export class HeaderComponent {
 
   changeActiveLink(clickedLink: number) {
     this.currentLink = clickedLink;
+    this.isMenuOpen = false;
+  }
+
+  onClickedOutside() {
     this.isMenuOpen = false;
   }
 

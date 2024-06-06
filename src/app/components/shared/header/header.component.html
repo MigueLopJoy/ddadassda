@@ -7,17 +7,6 @@
                 </a>
             </div>
 
-            <div class="hidden sm:ml-6 sm:block">
-                <div class="flex space-x-4">
-                    <a routerLink="/inicio" class="bg-sky-600 text-white rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page">Inicio</a>
-                    <a routerLink="/buscar-mascota"
-                        class="text-gray-700 hover:bg-sky-600 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Encuentra
-                        tu mascota</a>
-                </div>
-            </div>
-
-            <!-- Mobile Menu Btn  -->
             <div class="flex items-center sm:hidden">
                 <button type="button" class="relative p-2" aria-controls="mobile-menu" aria-expanded="false">
 
@@ -42,7 +31,7 @@
     </div>
 
     @if (isMenuOpen) {
-    <div class="sm:hidden">
+    <div appClickOutside (clickOutside)="onClickedOutside()">
         <div class="bg-white rounded p-4 py-6 shadow-lg">
             @for (menuItem of menuItems; track menuItem; let index = $index) {
             <a routerLink="{{menuItem.route}}" class="block rounded-md p-4 font-semibold"
