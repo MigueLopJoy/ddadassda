@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
+import { FilesService } from '../core/services/files/files.service';
 
 @Component({
   selector: 'app-geo-api',
@@ -12,56 +13,41 @@ import { Observable } from 'rxjs';
 export class GeoAPIComponent {
 
   public constructor(
-    private httpClient: HttpClient
+    private filesService: FilesService
   ) {}
 
+  municipalitiesProvince!: any;
+  municipalitiesPostalCode!: object;
+  isProvincesInputFocused: boolean = false;
 
-  get(fileUrl: string): Observable<string> {
-    return this.httpClient.get(fileUrl) as Observable<string>;
+  onFocusProvincesInput() {
+    this.isProvincesInputFocused = true;
+    this.getMunicipalitiesProvince();
   }
 
-  getFile(): string {
-    const file: string = "";
-    this.get('/assets/info/municipios.csv')
+  getMunicipalitiesProvince(): void {
+    this.filesService.get(this.filesService.municipalities_provinces_URL)
     .subscribe({
-      next: (file: string) => {
-        console.log(file)
+      next: (municipalitiesProvince: object) => {
+        this.municipalitiesProvince = municipalitiesProvince;
       }
     })
-    return file;
   }
 
-  // readFile(file: string): void {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       const text = reader.result as string;
-  //       console.log(text);
-  //     };
-  //     reader.onerror = (e) => {
-  //       console.error("Error reading CSV file: "), e;
-  //     };
-  //     reader.readAsText(file);
-  //   }
-  // }
+  getMunicipalitiesPostalCode(): void {
+    this.filesService.get(this.filesService.municipalities_postalCode_URL)
+    .subscribe({
+      next: (municipalitiesPostalCode: object) => {
+        this.municipalitiesPostalCode = municipalitiesPostalCode;
+      }
+    })
+  }
 
-
-
-  // csvToJson(csv: string): any[] {
-  //   const lines = csv.split('\n');
-  //   const headers = lines[0].split(',');
-  //   const data = lines.slice(1).map(line => {
-  //     const values = line.split(',');
-  //     const obj: any = {};
-  //     headers.forEach((header, index) => {
-  //       obj[header.trim()] = values[index].trim();
-  //     });
-  //     return obj;
-  //   });
-  //   return data;
-  // }
+  getEntries(object: object) {
+    return Object.entries(object);
+  }
 
   ngOnInit() {
-    this.getFile();
+    this.getMunicipalitiesProvince();
   }
 }
