@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'; // Asegúrate de importar 'tap' aquí
 import { FilesService } from '../core/services/files/files.service';
+import { SelectInputComponent } from '../components/shared/select-input/select-input.component';
 
 @Component({
   selector: 'app-geo-api',
   standalone: true,
-  imports: [],
+  imports: [SelectInputComponent],
   templateUrl: './geo-api.component.html',
   styleUrl: './geo-api.component.css'
 })
@@ -16,29 +17,21 @@ export class GeoAPIComponent {
     private filesService: FilesService
   ) {}
 
-  municipalitiesProvince!: object;
+  municipalitiesProvince!: any;
   municipalitiesPostalCode!: object;
-  isProvincesInputFocused: boolean = false;
+  provinces!: string[];
+  selectedProvince!: string;
+  selectedMunicipality!: string;
   isProvinceSelected: boolean = false;
 
-  onFocusProvincesInput() {
-    if (!this.municipalitiesProvince) {
-      this.getMunicipalitiesProvince()
-      .subscribe({
-        next: () => {
-          this.isProvincesInputFocused = true;
-        }
-      })
-    }
-  }
-
-  getMunicipalitiesProvince(): Observable<object> {
-    return this.filesService.get(this.filesService.municipalities_provinces_URL)
-    .pipe(
-      tap((municipalitiesProvince: object) => {
-        this.municipalitiesProvince = municipalitiesProvince;
-      })
-    )
+  getMunicipalitiesProvince() {
+    this.filesService.get(this.filesService.municipalities_provinces_URL)
+    .subscribe({
+      next: (municipalities: any) => {
+        this.municipalitiesProvince = municipalities;
+        this.provinces = this.getObjectKeys(municipalities);
+      }
+    })
   }
 
   getMunicipalitiesPostalCode(): void {
@@ -50,20 +43,21 @@ export class GeoAPIComponent {
     })
   }
 
-  isChosen(data: any) {
-    console.log(data.srcElement.value)
+  onProvinceChosen(province: string) {
+    this.selectedProvince = province;
+    this.isProvinceSelected = true;
   }
 
-  getEntries(object: object) {
-    console.log(object)
-    return Object.entries(object);
+  onMunicipalityChosen(municipality: string) {
+    console.log(municipality)
+    this.selectedMunicipality = municipality;
   }
 
   getObjectKeys(object: object) {
     return Object.keys(object);
   }
 
-  construirNuevoObjeto(data: any): any {
-    const nuevoObjeto: any = {};
+  ngOnInit() {
+    this.getMunicipalitiesProvince();
   }
 }

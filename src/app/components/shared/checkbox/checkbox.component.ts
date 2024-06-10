@@ -1,19 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox',
   standalone: true,
-  imports: [FormsModule],
+  imports: [],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.css'
 })
 export class CheckboxComponent {
 
   @Input() labelText!: string;
-  @Input() disabled: boolean = false;
+  @Input() checked: boolean = false;
   @Output() checkChange: EventEmitter<boolean> = new EventEmitter<boolean>;
-  checked: boolean = false;
 
   onCheckBoxChange() {
     this.checked = !this.checked;

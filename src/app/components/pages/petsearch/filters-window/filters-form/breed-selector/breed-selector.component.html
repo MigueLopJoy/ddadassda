@@ -2,11 +2,25 @@
     <label class="block font-semibold mb-2">Raza:</label>
 
     @if (animalType === "Perro") {
-    <app-select-input [options]="dogBreeds" (inputValue)=" onBreedsReceived($event)"></app-select-input>
+        <app-select-input 
+            [multiple]="true"
+            [placeholder]="'Buscar raza'"
+            [options]="dogBreeds" 
+            (multipleInputValue)="onBreedsReceived($event)">
+        </app-select-input>
     } @else if (animalType === "Gato") {
-    <app-select-input [options]="catBreeds" (inputValue)=" onBreedsReceived($event)"></app-select-input>
+        <app-select-input 
+            [multiple]="true"
+            [placeholder]="'Buscar raza'"
+            [options]="catBreeds" 
+            (multipleInputValue)="onBreedsReceived($event)">
+        </app-select-input>
     } @else {
-    <app-select-input (inputValue)="onBreedsReceived($event)"></app-select-input>
+        <app-select-input 
+            [multiple]="true"
+            [placeholder]="'Buscar raza'"
+            (multipleInputValue)="onBreedsReceived($event)">
+        </app-select-input>
     }
 
     @if (selectedBreeds && selectedBreeds.length > 0) {

@@ -14,7 +14,7 @@ export class FilesService {
   municipalities_postalCode_URL = '/assets/info/municipalities_postalCode.json';
   municipalities_provinces_URL = '/assets/info/municipalities_provinces.json';
 
-  get(fileUrl: string): Observable<object> {
-    return this.httpClient.get(fileUrl) as Observable<object>;
+  get(fileUrl: string): Observable<{}[]> {
+    return this.httpClient.get(fileUrl) as Observable<{}[]>;
   }
 }

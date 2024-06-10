@@ -2,28 +2,34 @@
     <form class="">
         <div class="mb-6">
             <input
-                class="w-full px-6 py-4 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm outline-none focus:border-sky-600 focus:bg-white"
+                class="input bg-gray-100 border border-gray-200"
                 placeholder="Código Postal" />
         </div>
         <div class="mb-6">
-            <select (focus)="onFocusProvincesInput()" (change)="isChosen($event)"
-                class="w-full px-6 py-4 rounded-lg text-gray-500 bg-gray-100 border border-gray-200 text-sm outline-none focus:border-sky-600 focus:bg-white">
-
-                @if (isProvincesInputFocused) {
-                @for (key of getObjectKeys(municipalitiesProvince); track key) {
-                <option value="{{key}}" class="text-gray-500">{{key}}</option>
-                }
-                }
-            </select>
+            <app-select-input 
+                [multiple]="false"
+                [placeholder]="'Provincia'"
+                [options]="provinces" 
+                [styles]="'bg-gray-100 border border-gray-200'"
+                (singleInputValue)="onProvinceChosen($event)">
+            </app-select-input>
         </div>
         <div class="mb-6">
-            <input [disabled]="isProvinceSelected"
-                class="w-full px-6 py-4 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm outline-none focus:border-sky-600 focus:bg-white"
+            <input [disabled]="!isProvinceSelected"
+                class="input bg-gray-100 border border-gray-200"
                 placeholder="Municipio" />
+
+            <app-select-input 
+                [multiple]="false"
+                [placeholder]="'Provincia'"
+                [options]="municipalitiesProvince[selectedProvince]" 
+                [styles]="'bg-gray-100 border border-gray-200'"
+                (singleInputValue)="onMunicipalityChosen($event)">
+            </app-select-input>
         </div>
         <div class="mb-6">
             <input
-                class="w-full px-6 py-4 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm outline-none focus:border-sky-600 focus:bg-white"
+                class="input bg-gray-100 border border-gray-200"
                 placeholder="Dirección" />
         </div>
     </form>

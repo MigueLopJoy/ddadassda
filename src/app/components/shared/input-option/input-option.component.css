@@ -1,0 +1,22 @@
+input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+ 	top: 7.5px;
+	left: 7.5px;
+	width: 7.5px;
+	height: 7.5px;
+	border-radius: 50%;
+	background: white;
+}

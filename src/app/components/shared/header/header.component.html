@@ -1,4 +1,4 @@
-<nav class="fixed top-0 left-0 w-full bg-white">
+<nav class="fixed top-0 left-0 w-full bg-white z-30">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b">
         <div class="flex h-16 items-center justify-between">
             <div class="w-40">
@@ -8,7 +8,7 @@
             </div>
 
             <div class="flex items-center sm:hidden">
-                <button type="button" class="relative p-2" aria-controls="mobile-menu" aria-expanded="false">
+                <button type="button" class="relative p-2">
 
                     <span class="absolute -inset-0.5" (click)="toggleMenu()"></span>
 
@@ -32,7 +32,7 @@
 
     @if (isMenuOpen) {
     <div appClickOutside (clickOutside)="onClickedOutside()">
-        <div class="bg-white rounded p-4 py-6 shadow-lg">
+        <div class="absolute w-full bg-white rounded p-4 py-6 shadow-lg">
             @for (menuItem of menuItems; track menuItem; let index = $index) {
             <a routerLink="{{menuItem.route}}" class="block rounded-md p-4 font-semibold"
                 (click)="changeActiveLink(index)" [ngClass]="{

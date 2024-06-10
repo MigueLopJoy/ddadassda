@@ -31,7 +31,9 @@
   }
 }
 
-
+.input {
+  @apply w-full px-6 py-4 rounded-lg text-sm outline-none placeholder-gray-500 focus:border-sky-600 focus:bg-white;
+}
 
 .btn {
   @apply py-3 px-6 rounded font-semibold;
