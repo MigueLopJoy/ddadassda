@@ -4,25 +4,16 @@
         <div class="mb-6">
             <label class="block font-semibold mb-4 text-gray-800">Estoy buscando...</label>
             <div class="w-100 flex flex-col gap-4">
-                <app-input-radio 
-                    [inputValue]="'Perro'" 
-                    [labelContent]="'Perro'"
-                    [checked]="petSearchData.animalType === 'Perro'" 
-                    (inputValueChange)="selectInputValue($event)"
+                <app-input-radio [inputValue]="'Perro'" [labelContent]="'Perro'"
+                    [checked]="petSearchData.animalType === 'Perro'" (inputValueChange)="selectInputValue($event)"
                     class="block w-100">
                 </app-input-radio>
-                <app-input-radio 
-                    [inputValue]="'Gato'" 
-                    [labelContent]="'Gato'" 
-                    [checked]="petSearchData.animalType === 'Gato'" 
-                    (inputValueChange)="selectInputValue($event)"
+                <app-input-radio [inputValue]="'Gato'" [labelContent]="'Gato'"
+                    [checked]="petSearchData.animalType === 'Gato'" (inputValueChange)="selectInputValue($event)"
                     class="block w-100">
                 </app-input-radio>
-                <app-input-radio 
-                    [inputValue]="'Otro'" 
-                    [labelContent]="'Otro'" 
-                    [checked]="petSearchData.animalType === 'Otro'" 
-                    (inputValueChange)="selectInputValue($event)"
+                <app-input-radio [inputValue]="'Otro'" [labelContent]="'Otro'"
+                    [checked]="petSearchData.animalType === 'Otro'" (inputValueChange)="selectInputValue($event)"
                     class="block w-100">
                 </app-input-radio>
             </div>
@@ -30,18 +21,12 @@
         <div class="mb-6">
             <label for="sex" class="block font-semibold text-gray-800 mb-4">Sexo:</label>
             <div class="w-full flex gap-4 items-center">
-                <app-input-radio 
-                    [inputValue]="'Macho'" 
-                    [labelContent]="maleIcon" 
-                    [checked]="petSearchData.sex === 'Macho'" 
-                    (inputValueChange)="selectInputValue($event)"
+                <app-input-radio [inputValue]="'Macho'" [labelContent]="maleIcon"
+                    [checked]="petSearchData.sex === 'Macho'" (inputValueChange)="selectInputValue($event)"
                     class="block w-2/4">
                 </app-input-radio>
-                <app-input-radio 
-                    [inputValue]="'Hembra'" 
-                    [labelContent]="femaleIcon" 
-                    [checked]="petSearchData.sex === 'Hembra'" 
-                    (inputValueChange)="selectInputValue($event)"
+                <app-input-radio [inputValue]="'Hembra'" [labelContent]="femaleIcon"
+                    [checked]="petSearchData.sex === 'Hembra'" (inputValueChange)="selectInputValue($event)"
                     class="block w-2/4">
                 </app-input-radio>
             </div>
@@ -65,7 +50,7 @@
             </div>
         </div>
         <div class="mb-6">
-            <app-breed-selector></app-breed-selector>
+            <app-breed-selector [animalType]="this.petSearchData.animalType"></app-breed-selector>
         </div>
         <div class="mb-6">
             <label class="block text-gray-800 font-semibold mb-2">Estado de Salud:</label>

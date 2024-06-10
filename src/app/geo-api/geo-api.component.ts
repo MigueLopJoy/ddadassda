@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'; // Asegúrate de importar 'tap' aquí
 import { FilesService } from '../core/services/files/files.service';
 
 @Component({
@@ -16,22 +16,29 @@ export class GeoAPIComponent {
     private filesService: FilesService
   ) {}
 
-  municipalitiesProvince!: any;
+  municipalitiesProvince!: object;
   municipalitiesPostalCode!: object;
   isProvincesInputFocused: boolean = false;
+  isProvinceSelected: boolean = false;
 
   onFocusProvincesInput() {
-    this.isProvincesInputFocused = true;
-    this.getMunicipalitiesProvince();
+    if (!this.municipalitiesProvince) {
+      this.getMunicipalitiesProvince()
+      .subscribe({
+        next: () => {
+          this.isProvincesInputFocused = true;
+        }
+      })
+    }
   }
 
-  getMunicipalitiesProvince(): void {
-    this.filesService.get(this.filesService.municipalities_provinces_URL)
-    .subscribe({
-      next: (municipalitiesProvince: object) => {
+  getMunicipalitiesProvince(): Observable<object> {
+    return this.filesService.get(this.filesService.municipalities_provinces_URL)
+    .pipe(
+      tap((municipalitiesProvince: object) => {
         this.municipalitiesProvince = municipalitiesProvince;
-      }
-    })
+      })
+    )
   }
 
   getMunicipalitiesPostalCode(): void {
@@ -43,11 +50,20 @@ export class GeoAPIComponent {
     })
   }
 
+  isChosen(data: any) {
+    console.log(data.srcElement.value)
+  }
+
   getEntries(object: object) {
+    console.log(object)
     return Object.entries(object);
   }
 
-  ngOnInit() {
-    this.getMunicipalitiesProvince();
+  getObjectKeys(object: object) {
+    return Object.keys(object);
+  }
+
+  construirNuevoObjeto(data: any): any {
+    const nuevoObjeto: any = {};
   }
 }

@@ -5,11 +5,13 @@ import { ClickOutsideDirective } from '../../../../../../core/directives/click-o
 import { DogBreed } from '../../../../../../core/model/pets/dogBreeds';
 import { CatBreed } from '../../../../../../core/model/pets/catBreeds';
 import { AnimalType } from '../../../../../../core/model/pets/animalTypes';
+import { NgClass } from '@angular/common';
+import { SelectInputComponent } from '../../../../../shared/select-input/select-input.component';
 
 @Component({
   selector: 'app-breed-selector',
   standalone: true,
-  imports: [FormsModule, CheckboxComponent, ClickOutsideDirective],
+  imports: [CheckboxComponent, SelectInputComponent],
   templateUrl: './breed-selector.component.html',
   styleUrl: './breed-selector.component.css'
 })
@@ -19,7 +21,7 @@ export class BreedSelectorComponent {
 
   @Input() animalType: AnimalType | null = null;
   @Output() breeds: EventEmitter<string[]> = new EventEmitter<string[]>;
-  dogBreeds: DogBreed[] = [
+  dogBreeds: string[] = [
     "Labrador",
     "Golden Retriever",
     "Pastor Alemán",
@@ -59,7 +61,7 @@ export class BreedSelectorComponent {
     "Bull Terrier",
     "Boyero de Berna"
   ];
-  catBreeds: CatBreed[] = [
+  catBreeds: string[] = [
     "Azul ruso",
     "Bengalí",
     "Bosque de noruega",
@@ -69,45 +71,15 @@ export class BreedSelectorComponent {
     "Siamés",
     "Siberiano"
   ];
-  selectedBreeds: string[] = [];
-  filteredBreeds: string[] = [];
-  isInputFocused: boolean = false;
-  searchText: string = "";
 
+  selectedBreeds!: string[];
 
-  onSearchChange(searchValue: string) {
-    const normalizedSearchValue = this.normalizeString(searchValue);
-    this.filteredBreeds = this.dogBreeds.filter(breed => {
-      return this.normalizeString(breed).includes(normalizedSearchValue);
-    })  
+  isAnimalTypeChosen(): boolean {
+    return !this.animalType ? false : true;
   }
 
-  normalizeString(str: string): string {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  onBreedsReceived(breeds: string[]): void {
+    this.selectedBreeds = breeds;
+    this.breeds.emit(breeds);
   }
-
-  toggleBreedCheck(selected: boolean, breed: string) {
-    if (breed === 'Todas') {
-      this.filteredBreeds = this.dogBreeds;
-    } else {
-      if (selected) this.selectedBreeds.push(breed);
-      else {
-        let breedIndex = this.selectedBreeds.indexOf(breed);
-        if (breedIndex > -1) {
-          console.log(breedIndex)
-          this.selectedBreeds.splice(breedIndex, 1)
-        }
-      }
-    }
-    this.breeds.emit(this.selectedBreeds);
-  }
-
-  showDropDown() {
-    this.isInputFocused = true;
-  }
-
-  onClickedOutside() {
-    this.isInputFocused = false;
-  }
-
 }
