@@ -15,14 +15,15 @@ import { InputOptionComponent } from '../input-option/input-option.component';
 export class SelectInputComponent {
 
   @Input() multiple!: boolean;
-  @Input() options!: string[];
+  @Input() options!: string[] | undefined;
   @Input() placeholder!: string;
-  @Input() styles!: string;
+  @Input() inputStyles!: string;
+  @Input() globalStyles!: string;
+  @Input() selectedOption!: string;
   @Output() multipleInputValue: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() singleInputValue: EventEmitter<string> = new EventEmitter<string>();
-  filteredOptions!: string[];
+  filteredOptions!: string[] | undefined;
   selectedOptions: string[] = [];
-  selectedOption!: string;
   isInputFocused: boolean = false;
   searchText: string = "";
 
@@ -42,7 +43,7 @@ export class SelectInputComponent {
     this.selectedOption = selected ? option : "";
     if (selected) {
       this.searchText = option;
-      this.singleInputValue.emit(option);
+      this.singleInputValue.emit(this.selectedOption);
     }
     this.isInputFocused = false;
   }
@@ -53,7 +54,7 @@ export class SelectInputComponent {
 
   onSearchChange(searchValue: string) {
     const normalizedSearchValue = this.normalizeString(searchValue);
-    this.filteredOptions = this.options.filter(option => {
+    this.filteredOptions = this.options?.filter(option => {
       return this.normalizeString(option).includes(normalizedSearchValue);
     })  
   }
@@ -63,20 +64,32 @@ export class SelectInputComponent {
   }
 
   toggleDropDown() {
-    if (this.isInputFocused) this.isInputFocused = false;
+    this.isInputFocused = !this.isInputFocused;
   }
 
   onClickedOutside() {
     this.isInputFocused = false;
   }
 
-  ngOnChanges() {
+  setOptions() {
     if (this.options) {
       this.filteredOptions = this.options;
+      this.searchText = "";
     }
   }
 
-  ngOnInit() {
-    console.log(this.styles)
+  setOptionValue() {
+    if (this.selectedOption) {
+      this.searchText = this.selectedOption;
+    }
+  }
+
+  ngOnChanges() {
+    this.setOptions()
+    this.setOptionValue();
+  }
+
+  getFocusStyles() {
+    return this.options && this.isInputFocused ? "border-sky-600 bg-white" : "";
   }
 }

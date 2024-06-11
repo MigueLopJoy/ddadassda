@@ -1,20 +1,18 @@
-<div class="relative" appClickOutside (clickOutside)="onClickedOutside()">
+<div class="relative" appClickOutside (clickOutside)="onClickedOutside()" [ngClass]="globalStyles">
 
     <div class="relative">
-        <input type="text"
-        class="input"
-        [ngClass]="styles"
-        placeholder="{{placeholder}}"
-        [(ngModel)]="searchText"
-        [disabled]="!options"
-        (input)="onSearchChange(searchText)"
-        (focus)="showDropDown()"
-        (click)="toggleDropDown()"
-    >
-        <span class="absolute top-5 right-2">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.1808 15.8297L6.54199 9.20285C5.89247 8.27496 6.55629 7 7.68892 7L16.3111 7C17.4437 7 18.1075 8.27496 17.458 9.20285L12.8192 15.8297C12.4211 16.3984 11.5789 16.3984 11.1808 15.8297Z" fill="#33363F"/>
-            </svg>
+        <input type="text" class="input {{getFocusStyles()}}" [ngClass]="inputStyles" placeholder="{{placeholder}}"
+            [(ngModel)]="searchText" [disabled]="!options" (input)="onSearchChange(searchText)"
+            (focus)="showDropDown()">
+        <span class="absolute top-5 right-2" (click)="toggleDropDown()">
+            <div class="relative">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.1808 15.8297L6.54199 9.20285C5.89247 8.27496 6.55629 7 7.68892 7L16.3111 7C17.4437 7 18.1075 8.27496 17.458 9.20285L12.8192 15.8297C12.4211 16.3984 11.5789 16.3984 11.1808 15.8297Z"
+                        fill="#33363F" />
+                </svg>
+                <span class="absolute inset-0 -m-2 bg-transparent"></span>
+            </div>
         </span>
     </div>
 
@@ -23,21 +21,15 @@
         <div class="max-h-64 overflow-y-auto">
 
             @for (option of filteredOptions; track option) {
-                @if (multiple) {
-                <app-checkbox
-                    class="block mb-4"
-                    [labelText]="option"
-                    [checked]="selectedOptions.includes(option)"
-                    (checkChange)="toggleCheckOption($event, option)">
-                </app-checkbox>
-                } @else {
-                <app-input-option
-                    class="block mb-4"
-                    [labelText]="option"
-                    [checked]="option === selectedOption"
-                    (checkChange)="toggleSingleOption($event, option)">
-                </app-input-option>
-                }
+            @if (multiple) {
+            <app-checkbox class="block mb-4" [labelText]="option" [checked]="selectedOptions.includes(option)"
+                (checkChange)="toggleCheckOption($event, option)">
+            </app-checkbox>
+            } @else {
+            <app-input-option class="block mb-4" [labelText]="option" [checked]="option === selectedOption"
+                (checkChange)="toggleSingleOption($event, option)">
+            </app-input-option>
+            }
             }
         </div>
     </div>

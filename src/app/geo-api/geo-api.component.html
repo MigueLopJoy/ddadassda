@@ -1,36 +1,28 @@
 <div class="p-8">
     <form class="">
         <div class="mb-6">
-            <input
-                class="input bg-gray-100 border border-gray-200"
-                placeholder="Código Postal" />
+            @if (postalCodeSearchText.length === 5 && !selectedMunicipality) {
+            <div class="py-1">
+                <span class="text-xs text-rose-500">Código postal no encontrado</span>
+            </div>
+            }
+            <input type="text" name="postalCode" class="input bg-gray-100 border border-gray-200"
+                placeholder="Código Postal" [(ngModel)]="postalCodeSearchText" (input)="searchPostalCode()">
         </div>
         <div class="mb-6">
-            <app-select-input 
-                [multiple]="false"
-                [placeholder]="'Provincia'"
-                [options]="provinces" 
-                [styles]="'bg-gray-100 border border-gray-200'"
-                (singleInputValue)="onProvinceChosen($event)">
+            <app-select-input [multiple]="false" [placeholder]="'Provincia'" [options]="provinces"
+                [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-20'"
+                [selectedOption]="selectedProvince" (singleInputValue)="onProvinceChosen($event)">
             </app-select-input>
         </div>
         <div class="mb-6">
-            <input [disabled]="!isProvinceSelected"
-                class="input bg-gray-100 border border-gray-200"
-                placeholder="Municipio" />
-
-            <app-select-input 
-                [multiple]="false"
-                [placeholder]="'Provincia'"
-                [options]="municipalitiesProvince[selectedProvince]" 
-                [styles]="'bg-gray-100 border border-gray-200'"
-                (singleInputValue)="onMunicipalityChosen($event)">
+            <app-select-input [multiple]="false" [placeholder]="'Municipio'" [options]="municipalities"
+                [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-10'"
+                [selectedOption]="selectedMunicipality" (singleInputValue)="onMunicipalityChosen($event)">
             </app-select-input>
         </div>
         <div class="mb-6">
-            <input
-                class="input bg-gray-100 border border-gray-200"
-                placeholder="Dirección" />
+            <input class="input bg-gray-100 border border-gray-200" placeholder="Dirección" />
         </div>
     </form>
 </div>
