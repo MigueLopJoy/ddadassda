@@ -1,14 +1,13 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
 import { ShelterComponent } from './components/pages/shelter/shelter.component';
-import { GeoAPIComponent } from './geo-api/geo-api.component';
 
 export const routes: Routes = [
     {
         path: '', redirectTo: 'inicio', pathMatch: 'full'
     },
     {
-        path: 'inicio', component: GeoAPIComponent
+        path: 'inicio', component: HomeComponent
     },
     {
         path: 'mascotas', 

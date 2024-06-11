@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
-import { Address } from '../../../core/model/shelter/address';
+import { Address } from '../../../core/model/address';
 
 @Component({
   selector: 'app-google-map',
@@ -22,7 +22,7 @@ export class GoogleMapComponent {
   location!: google.maps.LatLngLiteral;
 
   getAddressGeolocation() {
-    const addressString = `${this.address.postalCode} ${this.address.street} ${this.address.city} ${this.address.province}`;
+    const addressString = `${this.address.postalCode} ${this.address.address} ${this.address.municipality} ${this.address.province}`;
 
     this.geocoder.geocode({
       address: addressString

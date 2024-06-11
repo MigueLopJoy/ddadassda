@@ -1,8 +1,12 @@
 <div class="relative" appClickOutside (clickOutside)="onClickedOutside()" [ngClass]="globalStyles">
 
     <div class="relative">
-        <input type="text" class="input {{getFocusStyles()}}" [ngClass]="inputStyles" placeholder="{{placeholder}}"
-            [(ngModel)]="searchText" [disabled]="!options" (input)="onSearchChange(searchText)"
+        <input type="text" class="input {{inputStyles}}" 
+            [ngClass]="{'border-sky-600 bg-white': this.options && this.isInputFocused, 'border-rose-500 focus:border-rose-500': isInputError()}" 
+            placeholder="{{placeholder}}"
+            [(ngModel)]="searchText" 
+            [disabled]="!options" 
+            (input)="onSearchChange()"
             (focus)="showDropDown()">
         <span class="absolute top-5 right-2" (click)="toggleDropDown()">
             <div class="relative">
@@ -16,7 +20,7 @@
         </span>
     </div>
 
-    @if (options && isInputFocused) {
+    @if (options && isInputFocused && !isInputError()) {
     <div class="absolute top-16 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 p-6">
         <div class="max-h-64 overflow-y-auto">
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeoAPIComponent } from './geo-api.component';
+import { AddressSelectorComponent } from './address-selector.component';
 
-describe('GeoAPIComponent', () => {
-  let component: GeoAPIComponent;
-  let fixture: ComponentFixture<GeoAPIComponent>;
+describe('AddressSelectorComponent', () => {
+  let component: AddressSelectorComponent;
+  let fixture: ComponentFixture<AddressSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GeoAPIComponent]
+      imports: [AddressSelectorComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(GeoAPIComponent);
+    fixture = TestBed.createComponent(AddressSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

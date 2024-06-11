@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { Address } from "../address";
 import { SocialMedia } from "./socialMedia";
 
 export interface Shelter {

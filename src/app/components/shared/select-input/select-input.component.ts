@@ -19,9 +19,11 @@ export class SelectInputComponent {
   @Input() placeholder!: string;
   @Input() inputStyles!: string;
   @Input() globalStyles!: string;
+  @Input() inputError!: boolean;
   @Input() selectedOption!: string;
   @Output() multipleInputValue: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() singleInputValue: EventEmitter<string> = new EventEmitter<string>();
+  @Output() input: EventEmitter<string> = new EventEmitter<string>();
   filteredOptions!: string[] | undefined;
   selectedOptions: string[] = [];
   isInputFocused: boolean = false;
@@ -52,11 +54,12 @@ export class SelectInputComponent {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  onSearchChange(searchValue: string) {
-    const normalizedSearchValue = this.normalizeString(searchValue);
+  onSearchChange() {
+    const normalizedSearchValue = this.normalizeString(this.searchText);
     this.filteredOptions = this.options?.filter(option => {
       return this.normalizeString(option).includes(normalizedSearchValue);
     })  
+    this.input.emit(this.searchText);
   }
 
   showDropDown() {
@@ -84,12 +87,12 @@ export class SelectInputComponent {
     }
   }
 
+  isInputError() {
+    return (this.inputError || (this.filteredOptions && this.filteredOptions.length < 1))
+  }
+
   ngOnChanges() {
     this.setOptions()
     this.setOptionValue();
-  }
-
-  getFocusStyles() {
-    return this.options && this.isInputFocused ? "border-sky-600 bg-white" : "";
   }
 }

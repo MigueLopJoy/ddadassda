@@ -12,6 +12,7 @@ import { PetHealthDetail } from '../../../core/model/pets/petHealthDetails';
 import { PetSpecialRequirement } from '../../../core/model/pets/petSpecialRequirements';
 import { PetDetailsComponent } from './pet-details/pet-details.component';
 import { PetDetails } from '../../../core/model/pets/petDetails';
+import { Address } from '../../../core/model/address';
 
 @Component({
   selector: 'app-pet-info',
@@ -48,10 +49,9 @@ export class PetInfoComponent {
     }
   ]
 
-  address = {
-    number: null,
-    street: 'Calle Principal',
-    city: 'Encinas Reales',
+  address: Address = {
+    address: 'Calle Principal',
+    municipality: 'Encinas Reales',
     postalCode: '14999',
     province: 'Córdoba'
   }
