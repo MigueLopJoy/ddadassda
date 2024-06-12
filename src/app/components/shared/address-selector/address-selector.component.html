@@ -1,6 +1,6 @@
 <form [formGroup]="addressForm">
     <div class="mb-6">
-        @if (isPostalCodeInvalid('postalCode') && af['postalCode'].errors) {
+        @if (af['postalCode'].errors) {
             @if (af['postalCode'].errors['requiered']) {
                 <div class="py-1">
                     <small class="text-xs text-rose-500">Debe introducir un código postal</small>
@@ -25,7 +25,7 @@
         @if (municipalityPostalCodes && municipalityPostalCodes.length > 1) {
         <app-select-input [multiple]="false" [placeholder]="'Código Postal'" [options]="municipalityPostalCodes"
             [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-30'"
-            [inputError]="(isPostalCodeInvalid('postalCode'))" [selectedOption]="postalCode"
+            [inputError]="(isPostalCodeInvalid())" [selectedOption]="postalCode"
             (singleInputValue)="searchPostalCode($event)" (input)="searchPostalCode($event)">
         </app-select-input>
         } @else {
