@@ -11,7 +11,7 @@ export class FilesService {
     private httpClient: HttpClient
   ) { }
 
-  URL = '/assets/info/municipalities_provinces.json';
+  URL = '/assets/info/municipalities_info.json';
 
   get(fileUrl: string): Observable<{}[]> {
     return this.httpClient.get(fileUrl) as Observable<{}[]>;

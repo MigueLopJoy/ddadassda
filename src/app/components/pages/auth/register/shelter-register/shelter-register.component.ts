@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { AddressSelectorComponent } from '../../../../shared/address-selector/address-selector.component';
 import { FormBuilder } from '@angular/forms';
+import { shelterRegisterRequest } from '../../../../../core/model/shelter/shelterRegisterRequest';
 
 @Component({
   selector: 'app-shelter-register',
@@ -13,4 +14,18 @@ export class ShelterRegisterComponent {
   constructor(
     private formBuilder: FormBuilder
   ) {}
+
+  @Output() registerRequest!: shelterRegisterRequest;
+  submitted: boolean = false;
+
+  registerForm = this.formBuilder.group(
+    {
+      name: "",
+      email: "",
+      phoneNumber: "",
+      address: undefined,
+      password: "",
+      confirmPassword: "",      
+    }
+  )
 }

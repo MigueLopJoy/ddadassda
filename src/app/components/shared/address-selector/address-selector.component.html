@@ -1,53 +1,34 @@
-    <form class="">
-        <div class="mb-6">
-            @if (postalCodeSearchText.length === 5 && !municipality) {
-            <div class="py-1">
-                <span class="text-xs text-rose-500">Código postal no encontrado</span>
-            </div>
-            }
-            @if (municipality && !postalCode) {
-                <app-select-input 
-                    [multiple]="false" 
-                    [placeholder]="'Código Postal'" 
-                    [options]="municipalityPostalCodes"
-                    [inputStyles]="'bg-gray-100 border border-gray-200'" 
-                    [globalStyles]="'z-30'"
-                    [inputError]="(postalCodeSearchText.length === 5 && !municipality)"
-                    [selectedOption]="postalCode" 
-                    (singleInputValue)="onPostalCodeChosen($event)"
-                    (input)="searchPostalCode($event)">
-                </app-select-input>
-            } @else {
-                <input type="text" name="postalCode" 
-                    class="input bg-gray-100 border border-gray-200"
-                    placeholder="Código Postal" 
-                    [ngClass]="{'border-rose-500 focus:border-rose-500': postalCodeSearchText.length === 5 && !municipality}"
-                    [(ngModel)]="postalCodeSearchText" 
-                    (input)="searchPostalCode()">
-            }
+<form class="">
+    <div class="mb-6">
+        @if (postalCodeSearchText.length === 5 && !municipality) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Código postal no encontrado</small>
         </div>
-        <div class="mb-6">
-            <app-select-input 
-                [multiple]="false" 
-                [placeholder]="'Provincia'" 
-                [options]="provinces"
-                [inputStyles]="'bg-gray-100 border border-gray-200'" 
-                [globalStyles]="'z-20'"
-                [selectedOption]="province" (singleInputValue)="onProvinceChosen($event)">
-            </app-select-input>
-        </div>
-        <div class="mb-6">
-            <app-select-input 
-                [multiple]="false" 
-                [placeholder]="'Municipio'" 
-                [options]="municipalities"
-                [inputStyles]="'bg-gray-100 border border-gray-200'" 
-                [globalStyles]="'z-10'"
-                [selectedOption]="municipality" 
-                (singleInputValue)="onMunicipalityChosen($event)">
-            </app-select-input>
-        </div>
-        <div>
-            <input class="input bg-gray-100 border border-gray-200" placeholder="Dirección" />
-        </div>
-    </form>
+        }
+        @if (municipality && !postalCode) {
+        <app-select-input [multiple]="false" [placeholder]="'Código Postal'" [options]="municipalityPostalCodes"
+            [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-30'"
+            [inputError]="(postalCodeSearchText.length === 5 && !municipality)" [selectedOption]="postalCode"
+            (singleInputValue)="onPostalCodeChosen($event)" (input)="searchPostalCode($event)">
+        </app-select-input>
+        } @else {
+        <input type="text" name="postalCode" class="input bg-gray-100 border border-gray-200"
+            placeholder="Código Postal" [(ngModel)]="postalCodeSearchText" (input)="searchPostalCode()">
+        }
+    </div>
+    <div class="mb-6">
+        <app-select-input [multiple]="false" [placeholder]="'Provincia'" [options]="provinces"
+            [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-20'" [selectedOption]="province"
+            (singleInputValue)="onProvinceChosen($event)">
+        </app-select-input>
+    </div>
+    <div class="mb-6">
+        <app-select-input [multiple]="false" [placeholder]="'Municipio'" [options]="municipalities"
+            [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-10'" [selectedOption]="municipality"
+            (singleInputValue)="onMunicipalityChosen($event)">
+        </app-select-input>
+    </div>
+    <div>
+        <input class="input bg-gray-100 border border-gray-200" placeholder="Dirección" />
+    </div>
+</form>
