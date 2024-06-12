@@ -1,5 +1,5 @@
 export interface Municipality {
-    name: string;
+    municipality: string;
     postalCodes: string[];
 }
 

@@ -25,7 +25,7 @@
             placeholder="Confirmar contraseña" />
     </div>
     <div class="mb-6">
-        <app-address-selector></app-address-selector>
+        <app-address-selector (addressInfo)="setAddressInfo($event)"></app-address-selector>
     </div>
     <div class="mb-6">
         <button class="btn btn-sky w-full py-6">

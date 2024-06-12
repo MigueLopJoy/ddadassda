@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { FilesService } from '../../../core/services/files/files.service';
 import { SelectInputComponent } from '../select-input/select-input.component';
-import { FormBuilder, FormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Address } from '../../../core/model/address';
 import { isIncluded } from '../../../core/validators/isIncludedValidator';
@@ -10,7 +10,7 @@ import { MunicipalitiesInfo, Municipality, PostalCodes, Provinces } from '../../
 @Component({
   selector: 'app-address-selector',
   standalone: true,
-  imports: [SelectInputComponent, FormsModule, NgClass],
+  imports: [SelectInputComponent, FormsModule, NgClass, ReactiveFormsModule],
   templateUrl: './address-selector.component.html',
   styleUrl: './address-selector.component.css'
 })
@@ -18,7 +18,8 @@ export class AddressSelectorComponent {
 
   public constructor(
     private filesService: FilesService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {}
 
   @Output() addressInfo: EventEmitter<Address> = new EventEmitter<Address>();
@@ -29,26 +30,25 @@ export class AddressSelectorComponent {
   provinces!: string[];
   municipalities!: string[];
   municipalityPostalCodes!: string[] | undefined;
-  postalCode!: string;
   province!: string;
   municipality!: string;
-  postalCodeSearchText: string = "";
+  postalCode!: string;
 
-  addressForm = this.formBuilder.group(
+
+  addressForm: FormGroup = this.formBuilder.group(
     {
       postalCode: ["", [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(5),
-        Validators.pattern('^[0-9]{5}$'),
-        isIncluded(this.postalCodes),
-        isIncluded(this.municipalityPostalCodes),
+        Validators.pattern('^[0-9]+$'),
       ]],
       municipality: ["", [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z]$')
+        Validators.pattern('^[a-zA-Z\s]$'),
+        isIncluded(this.municipalities)
       ]],
       province: ["", [
         Validators.required,
@@ -61,83 +61,92 @@ export class AddressSelectorComponent {
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100),
-        Validators.pattern('^[0-9]+[a-zA-Z]?$'),
-        isIncluded(this.municipalities)
+        Validators.pattern('^[a-zA-Z0-9\s\\-,/.ª]+$'),
       ]]
     }
-  )
+  );
+
+  get af(): { [key: string]: AbstractControl } {
+    return this.addressForm.controls;
+  }
+
+  setPostalCodeValidators(list: string[]) {
+    this.addressForm.get('postalCode')?.setValidators([
+      isIncluded(list)
+    ])
+  }
+
+  setFormValues() {
+    let addressFormProperties = this.addressForm.value;
+    addressFormProperties.municipality = this.municipality;
+    addressFormProperties.province = this.province;
+    console.log(this.addressForm.value)
+  }
+
+  isFormValid(): boolean {
+    this.setFormValues();
+    return !this.addressForm.invalid;
+  }
+
+  submitFormIfValid() {
+    if (this.isFormValid()) {
+      const {postalCode, municipality, province, address} = this.addressForm.value;
+
+      this.addressInfo.emit({
+        postalCode: postalCode || '',
+        municipality: municipality || '',
+        province: province || '',
+        address: address || ''
+      });
+    }
+  }
+
+  isFieldinvalid(field: string): boolean {
+    return this.af[field] && this.af[field].errors ? true : false;
+  }
+
+  isPostalCodeInvalid(field: string): boolean {
+    return (this.postalCode && (this.postalCode.length === 5)) && this.isFieldinvalid(field) ? true : false;
+  }
 
   searchPostalCode(searchText: string = "") {
-    if (searchText) this.postalCodeSearchText = searchText;
-    if (this.postalCode && this.postalCode !== this.postalCodeSearchText) {
+    if (searchText) this.addressForm.patchValue({ postalCode: searchText }, { emitEvent: false });
+    let formPostalCode = this.addressForm.value.postalCode;
+    console.log(formPostalCode)
+    console.log(this.postalCode)
+    if (this.postalCode && formPostalCode !== this.postalCode) {
       this.resetSearch();
     } else {
-      if (this.postalCodeSearchText.length === 5) {
-        let postalCodeInfo = this.postalCodesInfo[this.postalCodeSearchText];
-        if (postalCodeInfo) {
-          console.log(postalCodeInfo)
-          this.postalCode = this.postalCodeSearchText;
-          this.onProvinceChosen(postalCodeInfo.province);
-          this.municipality = postalCodeInfo.municipality;
-          console.log(this.municipality)
-        }
+      this.postalCode = formPostalCode && formPostalCode.length === 5 ? formPostalCode : "";
+      console.log(this.postalCode)
+      let postalCodeInfo = this.postalCodesInfo[this.postalCode];
+      if (postalCodeInfo) {
+        this.province = postalCodeInfo.province;
+        this.municipalities = this.getMunicipalityNames(this.provincesInfo[this.province]);
+        this.municipality = postalCodeInfo.municipality;
+        this.submitFormIfValid();
       }
+      console.log(this.af['postalCode'].errors)
     }
-  }
-
-  transformData(data: any): any {
-    const newProvinces: any = {};
-    const newPostalCodes: any = {};
-
-    // Transform provinces
-    for (const province in data.provinces) {
-      if (data.provinces.hasOwnProperty(province)) {
-        newProvinces[province] = data.provinces[province].map((municipio: any) => ({
-          municipality: municipio.municipio,
-          postalCodes: municipio.codigosPostales
-        }));
-      }
-    }
-
-    // Transform postal codes
-    for (const postalCode in data.postalCodes) {
-      if (data.postalCodes.hasOwnProperty(postalCode)) {
-        const info = data.postalCodes[postalCode];
-        newPostalCodes[postalCode] = {
-          municipality: info.municipio,
-          province: info.provincia
-        };
-      }
-    }
-
-    console.log({
-      provinces: newProvinces,
-      postalCodes: newPostalCodes
-    });
-  }
-
-  onPostalCodeChosen(postalCode: string) {
-    this.postalCodeSearchText = postalCode;
-    this.searchPostalCode();
   }
 
   onProvinceChosen(province: string) {
-    console.log(province)
     this.province = province;
+    this.resetPostalCodeInfo();
+    this.municipality = "";
     this.municipalities = this.getMunicipalityNames(this.provincesInfo[province]);
-    if (this.municipality) {
-      this.municipality = "";
-    }
   }
 
   onMunicipalityChosen(municipality: string) {
     this.municipality = municipality;
     this.resetPostalCodeInfo();
     this.municipalityPostalCodes = this.getMunicipalityPostalCodes();
+    if (this.municipalityPostalCodes) this.setPostalCodeValidators(this.municipalityPostalCodes);
     if (this.municipalityPostalCodes && this.municipalityPostalCodes.length === 1) {
       let singlePostalCode = this.municipalityPostalCodes[0];
-      this.postalCodeSearchText = singlePostalCode;
+      this.addressForm.patchValue({ postalCode: singlePostalCode }, { emitEvent: false });
       this.postalCode = singlePostalCode;
+      this.submitFormIfValid();
     }
   }
 
@@ -146,39 +155,38 @@ export class AddressSelectorComponent {
     this.municipality = "";
     this.postalCode = "";
     this.municipalityPostalCodes = [];
+    this.cdr.detectChanges()
   }
 
   resetPostalCodeInfo() {
+    this.addressForm.value.postalCode = "";
     this.postalCode = "";
-    this.postalCodeSearchText = "";
     this.municipalityPostalCodes = [];
   }
 
   getMunicipalityPostalCodes(): string[] | undefined {
     return this.provincesInfo[this.province].find(
-      (m: Municipality) => m.name === this.municipality
+      (m: Municipality) => m.municipality === this.municipality
     )?.postalCodes;
   }
 
   getMunicipalityNames(municipalities: Municipality[]) {
-    console.log(municipalities)
-    return municipalities.map((m: Municipality) => m.name);
+    return municipalities.map((m: Municipality) => m.municipality);
   }
 
   getMunicipalities() {
     this.filesService.get(this.filesService.URL)
     .subscribe({
-      next: (municipalities: any) => {
+      next: (municipalities: MunicipalitiesInfo) => {
         this.municipalitiesInfo = municipalities;
         this.provincesInfo = municipalities['provinces'];
         this.postalCodesInfo = municipalities['postalCodes'];
         this.provinces = this.getObjectKeys(this.provincesInfo);
         this.postalCodes = this.getObjectKeys(this.postalCodesInfo);
-        this.transformData(this.municipalitiesInfo)
+        this.setPostalCodeValidators(this.postalCodes);
       }
     })
   }
-
 
   getObjectKeys(object: object) {
     return Object.keys(object);

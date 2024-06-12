@@ -2,6 +2,7 @@ import { Component, Output } from '@angular/core';
 import { AddressSelectorComponent } from '../../../../shared/address-selector/address-selector.component';
 import { FormBuilder } from '@angular/forms';
 import { shelterRegisterRequest } from '../../../../../core/model/shelter/shelterRegisterRequest';
+import { Address } from '../../../../../core/model/address';
 
 @Component({
   selector: 'app-shelter-register',
@@ -28,4 +29,8 @@ export class ShelterRegisterComponent {
       confirmPassword: "",      
     }
   )
+
+  setAddressInfo(address: Address) {
+    console.log(address);
+  }
 }

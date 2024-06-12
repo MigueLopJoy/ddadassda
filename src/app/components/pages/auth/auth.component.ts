@@ -23,7 +23,6 @@ export class AuthComponent {
     .pageTitle
     .subscribe({
       next: (pageTitle: string) => {
-        console.log(pageTitle) 
         if (pageTitle) {
           this.pageTitle = pageTitle;
           this.cdr.detectChanges();
