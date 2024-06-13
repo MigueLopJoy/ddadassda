@@ -6,11 +6,12 @@ import { NgClass } from '@angular/common';
 import { Address } from '../../../core/model/address';
 import { isIncluded } from '../../../core/validators/isIncludedValidator';
 import { MunicipalitiesInfo, Municipality, PostalCodes, Provinces } from '../../../core/model/municipalitiesInfo';
+import { PostalCodeSelectorComponent } from './postal-code-selector/postal-code-selector.component';
 
 @Component({
   selector: 'app-address-selector',
   standalone: true,
-  imports: [SelectInputComponent, FormsModule, NgClass, ReactiveFormsModule],
+  imports: [SelectInputComponent, FormsModule, NgClass, ReactiveFormsModule, PostalCodeSelectorComponent],
   templateUrl: './address-selector.component.html',
   styleUrl: './address-selector.component.css'
 })
@@ -27,7 +28,6 @@ export class AddressSelectorComponent {
   municipalitiesInfo!: MunicipalitiesInfo;
   provincesInfo!: Provinces;
   postalCodesInfo!: PostalCodes;
-  postalCodes!: string[];
   provinces!: string[];
   municipalities!: string[];
   municipalityPostalCodes!: string[] | undefined;
@@ -47,28 +47,11 @@ export class AddressSelectorComponent {
     );
     this.setMunicipalityValidators();
     this.setProvinceValidators();
-    this.setPostalCodeValidators();
     this.setAddressValidators();
   }
 
   get af(): { [key: string]: AbstractControl } {
     return this.addressForm.controls;
-  }
-
-
-  setPostalCodeValidators(list: string[] = []) {
-    const control: AbstractControl | null = this.addressForm.get('postalCode');
-    if (control) {
-      control.clearValidators();
-      control?.setValidators([
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(5),
-        Validators.pattern('^[0-9]+$'),
-        isIncluded(list)
-      ]);
-      control.updateValueAndValidity();
-    }
   }
 
   setMunicipalityValidators(list: string[] = []) {
@@ -119,6 +102,7 @@ export class AddressSelectorComponent {
     let addressFormProperties = this.addressForm.value;
     addressFormProperties.municipality = this.municipality;
     addressFormProperties.province = this.province;
+    this.addressForm.patchValue({ postalCode: this.postalCode }, { emitEvent: false })
   }
 
   isFormValid(): boolean {
@@ -139,32 +123,6 @@ export class AddressSelectorComponent {
     }
   }
 
-  isFieldInvalid(field: string): boolean {
-    console.log(this.af[field].errors)
-    return this.af[field] && this.af[field].errors ? true : false;
-  }
-
-  isPostalCodeInvalid(): boolean {
-    return (this.postalCode && !(this.postalCode.length < 5)) && this.isFieldInvalid('postalCode') ? true : false;
-  }
-
-  searchPostalCode(searchText: string = "") {
-    if (searchText) this.addressForm.patchValue({ postalCode: searchText }, { emitEvent: false });
-    let formPostalCode = this.addressForm.value.postalCode;
-    if (this.postalCode && formPostalCode !== this.postalCode) {
-      this.resetSearch();
-    } else {
-      this.postalCode = formPostalCode && formPostalCode.length === 5 ? formPostalCode : "";
-      let postalCodeInfo = this.postalCodesInfo[this.postalCode];
-      if (postalCodeInfo) {
-        this.province = postalCodeInfo.province;
-        this.setProvinceMunicipalities();
-        this.setMunicipalityPostalCodes(postalCodeInfo.municipality);
-        this.submitFormIfValid();
-      }
-    }
-  }
-
   onProvinceChosen(province: string) {
     this.province = province;
     this.resetPostalCodeInfo();
@@ -177,7 +135,6 @@ export class AddressSelectorComponent {
     this.setMunicipalityPostalCodes(municipality);
     if (this.municipalityPostalCodes && this.municipalityPostalCodes.length === 1) {
       let singlePostalCode = this.municipalityPostalCodes[0];
-      this.addressForm.patchValue({ postalCode: singlePostalCode }, { emitEvent: false });
       this.postalCode = singlePostalCode;
       this.submitFormIfValid();
     }
@@ -212,8 +169,6 @@ export class AddressSelectorComponent {
   setMunicipalityPostalCodes(municipality: string) {
     this.municipality = municipality;
     this.municipalityPostalCodes = this.getMunicipalityPostalCodes();
-    if (this.municipalityPostalCodes) this.setPostalCodeValidators(this.municipalityPostalCodes);
-    this.setPostalCodeValidators(this.postalCodes);
   }
 
   getMunicipalityNames(municipalities: Municipality[]) {
@@ -229,8 +184,6 @@ export class AddressSelectorComponent {
         this.postalCodesInfo = municipalities['postalCodes'];
         this.provinces = this.getObjectKeys(this.provincesInfo);
         this.setProvinceValidators(this.provinces);
-        this.postalCodes = this.getObjectKeys(this.postalCodesInfo);
-        this.setPostalCodeValidators(this.postalCodes);      
       }
     })
   }
