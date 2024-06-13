@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FilesService } from '../../../core/services/files/files.service';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,17 +23,18 @@ export class AddressSelectorComponent {
     private cdr: ChangeDetectorRef
   ) {}
 
-  @Input() submitted!: boolean; 
+  @Input() submitted: boolean = false; 
   @Output() addressInfo: EventEmitter<Address> = new EventEmitter<Address>();
   municipalitiesInfo!: MunicipalitiesInfo;
   provincesInfo!: Provinces;
   postalCodesInfo!: PostalCodes;
+  postalCodes!: string[];
   provinces!: string[];
-  municipalities!: string[];
+  municipalities!: string[] | undefined;
   municipalityPostalCodes!: string[] | undefined;
   province!: string;
   municipality!: string;
-  postalCode!: string;
+  postalCode: string = "";
   addressForm!: FormGroup;
 
   createAddresForm() {
@@ -133,31 +134,35 @@ export class AddressSelectorComponent {
   onMunicipalityChosen(municipality: string) {
     this.resetPostalCodeInfo();
     this.setMunicipalityPostalCodes(municipality);
-    if (this.municipalityPostalCodes && this.municipalityPostalCodes.length === 1) {
-      let singlePostalCode = this.municipalityPostalCodes[0];
-      this.postalCode = singlePostalCode;
+    if (this.municipalityPostalCodes !== undefined && this.municipalityPostalCodes.length === 1) {
+      this.postalCode = this.municipalityPostalCodes[0];
       this.submitFormIfValid();
     }
   }
 
   resetSearch() {
+    this.addressForm.patchValue({ postalCode: "" }, { emitEvent: false })
     this.province = "";
     this.municipality = "";
-    this.postalCode = "";
-    this.municipalityPostalCodes = [];
-    this.cdr.detectChanges()
+    this.municipalityPostalCodes = undefined;
+    this.municipalities = undefined;
   }
 
   resetPostalCodeInfo() {
     this.addressForm.value.postalCode = "";
     this.postalCode = "";
-    this.municipalityPostalCodes = [];
+    this.municipalityPostalCodes = undefined;
   }
 
-  getMunicipalityPostalCodes(): string[] | undefined {
-    return this.provincesInfo[this.province].find(
-      (m: Municipality) => m.municipality === this.municipality
-    )?.postalCodes;
+  setPostalCode(postalCode: string) {
+    this.postalCode = postalCode;
+    let postalCodeInfo = this.postalCodesInfo[this.postalCode];
+    if (postalCodeInfo && (this.province !== postalCodeInfo.province) && (this.municipality !== postalCodeInfo.municipality)) {
+      this.province = postalCodeInfo.province;
+      this.setProvinceMunicipalities();
+      this.setMunicipalityPostalCodes(postalCodeInfo.municipality);
+      this.submitFormIfValid();
+    }
   }
 
   setProvinceMunicipalities() {
@@ -169,6 +174,12 @@ export class AddressSelectorComponent {
   setMunicipalityPostalCodes(municipality: string) {
     this.municipality = municipality;
     this.municipalityPostalCodes = this.getMunicipalityPostalCodes();
+  }
+
+  getMunicipalityPostalCodes(): string[] | undefined {
+    return this.provincesInfo[this.province].find(
+      (m: Municipality) => m.municipality === this.municipality
+    )?.postalCodes;
   }
 
   getMunicipalityNames(municipalities: Municipality[]) {
@@ -184,6 +195,7 @@ export class AddressSelectorComponent {
         this.postalCodesInfo = municipalities['postalCodes'];
         this.provinces = this.getObjectKeys(this.provincesInfo);
         this.setProvinceValidators(this.provinces);
+        this.postalCodes = this.getObjectKeys(this.postalCodesInfo);
       }
     })
   }

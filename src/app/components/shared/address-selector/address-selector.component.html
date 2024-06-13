@@ -1,8 +1,13 @@
 <form [formGroup]="addressForm">
     <div class="mb-6">
-        <app-postal-code-selector [(postalCode)]="postalCode" [submitted]="submitted"
-            [postalCodesInfo]="postalCodesInfo"
-            [municipalityPostalCodes]="municipalityPostalCodes"></app-postal-code-selector>
+        <app-postal-code-selector 
+            [postalCode]="postalCode" 
+            [submitted]="submitted"
+            [municipalityPostalCodes]="municipalityPostalCodes" 
+            [postalCodes]="postalCodes" 
+            (postalCodeChange)="setPostalCode($event)" 
+            (resetSearch)="resetSearch()">
+        </app-postal-code-selector>
     </div>
     <div class="mb-6">
         <app-select-input [multiple]="false" [placeholder]="'Provincia'" [options]="provinces"

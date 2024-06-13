@@ -1,20 +1,20 @@
 <div>
-    @if (postalCodeRequiredError()) {
+    @if (requiredError()) {
     <div class="py-1">
         <small class="text-xs text-rose-500">Debe introducir un código postal</small>
     </div>
     }
-    @if (postalCodeLengthError()) {
+    @if (lengthError()) {
     <div class="py-1">
         <small class="text-xs text-rose-500">El código postal debe tener cinco dígitos</small>
     </div>
     }
-    @if (postalCodePatternError()) {
+    @if (patternError()) {
     <div class="py-1">
         <small class="text-xs text-rose-500">Código postal no válido</small>
     </div>
     }
-    @if (postalCodeNotFoundError()) {
+    @if (notFoundError()) {
     <div class="py-1">
         <small class="text-xs text-rose-500">Código postal no encontrado</small>
     </div>
@@ -28,7 +28,7 @@
     } @else {
     <input type="text" name="postalCode" class="input bg-gray-100 border border-gray-200"
         [ngClass]="{'border-rose-500 focus:border-rose-500 bg-white': isPostalCodeInvalid()}"
-        placeholder="Código Postal" formControlName="postalCode" [value]="postalCodeForm.value.postalCode"
+        placeholder="Código Postal" [(ngModel)]="postalCode" [value]="postalCode"
         (input)="searchPostalCode()">
     }
 </div>

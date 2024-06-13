@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { ClickOutsideDirective } from '../../../core/directives/click-outside/click-outside.directive';
 import { FormsModule } from '@angular/forms';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
@@ -74,25 +74,22 @@ export class SelectInputComponent {
     this.isInputFocused = false;
   }
 
-  setOptions() {
-    if (this.options) {
-      this.filteredOptions = this.options;
+  setOptions(options: string[]) {
+      this.filteredOptions = options;
       this.searchText = "";
-    }
-  }
-
-  setOptionValue() {
-    if (this.selectedOption) {
-      this.searchText = this.selectedOption;
-    }
   }
 
   isInputError() {
     return (this.inputError || (this.filteredOptions && this.filteredOptions.length < 1))
   }
 
-  ngOnChanges() {
-    this.setOptions()
-    this.setOptionValue();
+  ngOnChanges(changes: SimpleChanges) {
+    for (const prop in changes) {
+      if (prop === 'options') {
+        this.setOptions(changes[prop].currentValue);
+      } else if (prop === 'selectedOption') {
+        this.searchText = changes[prop].currentValue;
+      }
+    }
   }
 }
