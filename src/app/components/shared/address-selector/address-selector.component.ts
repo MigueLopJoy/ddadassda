@@ -149,7 +149,7 @@ export class AddressSelectorComponent {
   }
 
   resetPostalCodeInfo() {
-    this.addressForm.value.postalCode = "";
+    this.addressForm.patchValue({ postalCode: "" }, { emitEvent: false })
     this.postalCode = "";
     this.municipalityPostalCodes = undefined;
   }
@@ -163,6 +163,7 @@ export class AddressSelectorComponent {
       this.setMunicipalityPostalCodes(postalCodeInfo.municipality);
       this.submitFormIfValid();
     }
+    this.cdr.detectChanges();
   }
 
   setProvinceMunicipalities() {

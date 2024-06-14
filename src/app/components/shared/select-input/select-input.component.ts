@@ -23,7 +23,7 @@ export class SelectInputComponent {
   @Input() selectedOption!: string;
   @Output() multipleInputValue: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() singleInputValue: EventEmitter<string> = new EventEmitter<string>();
-  @Output() input: EventEmitter<string> = new EventEmitter<string>();
+  @Output() inputChange: EventEmitter<string> = new EventEmitter<string>();
   filteredOptions!: string[] | undefined;
   selectedOptions: string[] = [];
   isInputFocused: boolean = false;
@@ -59,7 +59,7 @@ export class SelectInputComponent {
     this.filteredOptions = this.options?.filter(option => {
       return this.normalizeString(option).includes(normalizedSearchValue);
     })  
-    this.input.emit(this.searchText);
+    this.inputChange.emit(this.searchText);
   }
 
   showDropDown() {
@@ -84,12 +84,12 @@ export class SelectInputComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    for (const prop in changes) {
-      if (prop === 'options') {
-        this.setOptions(changes[prop].currentValue);
-      } else if (prop === 'selectedOption') {
-        this.searchText = changes[prop].currentValue;
-      }
+    if (changes['options']) {
+      this.setOptions(changes['options'].currentValue);
+
+    } 
+    if (changes['selectedOption']) {
+      this.searchText = changes['selectedOption'].currentValue; 
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectInputComponent } from '../../select-input/select-input.component';
 import { NgClass } from '@angular/common';
@@ -24,7 +24,6 @@ export class PostalCodeSelectorComponent {
 
   submitIfValid() {
     if (this.postalCode.length === 5 && !this.isPostalCodeInvalid()) {
-      console.log("POSTAL CODE EMITED")
       this.postalCodeChange.emit(this.postalCode);      
     }
   }
@@ -78,7 +77,7 @@ export class PostalCodeSelectorComponent {
       this.notFoundError();
   }
 
-  getObjectKeys(object: object) {
+  getObjectKeys(object: object): string[] {
     return Object.keys(object);
   }
 

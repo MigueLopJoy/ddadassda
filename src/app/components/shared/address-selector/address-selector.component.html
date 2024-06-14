@@ -1,21 +1,32 @@
 <form [formGroup]="addressForm">
     <div class="mb-6">
-        <app-postal-code-selector 
-            [postalCode]="postalCode" 
-            [submitted]="submitted"
-            [municipalityPostalCodes]="municipalityPostalCodes" 
-            [postalCodes]="postalCodes" 
-            (postalCodeChange)="setPostalCode($event)" 
-            (resetSearch)="resetSearch()">
+        <app-postal-code-selector [postalCode]="postalCode" [submitted]="submitted"
+            [municipalityPostalCodes]="municipalityPostalCodes" [postalCodes]="postalCodes"
+            (postalCodeChange)="setPostalCode($event)" (resetSearch)="resetSearch()">
         </app-postal-code-selector>
     </div>
     <div class="mb-6">
+
+        @if (af['province'].errors) {
+        @if (af['province'].errors['required']) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Debe escoger una provincia</small>
+        </div>
+        }
+        }
         <app-select-input [multiple]="false" [placeholder]="'Provincia'" [options]="provinces"
             [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-20'" [selectedOption]="province"
             (singleInputValue)="onProvinceChosen($event)">
         </app-select-input>
     </div>
     <div class="mb-6">
+        @if (af['municipality'].errors) {
+        @if (af['municipality'].errors['required']) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Debe escoger un municipio</small>
+        </div>
+        }
+        }
         <app-select-input [multiple]="false" [placeholder]="'Municipio'" [options]="municipalities"
             [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-10'" [selectedOption]="municipality"
             (singleInputValue)="onMunicipalityChosen($event)">
