@@ -6,30 +6,55 @@
         </app-postal-code-selector>
     </div>
     <div class="mb-6">
-
-        @if (af['province'].errors) {
-        @if (af['province'].errors['required']) {
+        @if (provinceRequiredError()) {
         <div class="py-1">
             <small class="text-xs text-rose-500">Debe escoger una provincia</small>
         </div>
         }
+        @if (provinceLengthError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Cantidad incorrecta de caracteres</small>
+        </div>
+        }
+        @if (provincePatternError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Nombre de provincia incorrecto</small>
+        </div>
+        }
+        @if (provinceIncludedError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Provincia no encontrada</small>
+        </div>
         }
         <app-select-input [multiple]="false" [placeholder]="'Provincia'" [options]="provinces"
             [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-20'" [selectedOption]="province"
-            (singleInputValue)="onProvinceChosen($event)">
+            (singleInputValue)="onProvinceChosen($event)" [inputError]="provinceError()">
         </app-select-input>
     </div>
     <div class="mb-6">
-        @if (af['municipality'].errors) {
-        @if (af['municipality'].errors['required']) {
+        @if (municipalityRequiredError()) {
         <div class="py-1">
             <small class="text-xs text-rose-500">Debe escoger un municipio</small>
         </div>
         }
+        @if (municipalityLengthError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Cantidad incorrecta de caracteres</small>
+        </div>
+        }
+        @if (municipalityPatternError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Nombre de municipio incorrecto</small>
+        </div>
+        }
+        @if (municipalityIncludedError()) {
+        <div class="py-1">
+            <small class="text-xs text-rose-500">Municipio no encontrado</small>
+        </div>
         }
         <app-select-input [multiple]="false" [placeholder]="'Municipio'" [options]="municipalities"
             [inputStyles]="'bg-gray-100 border border-gray-200'" [globalStyles]="'z-10'" [selectedOption]="municipality"
-            (singleInputValue)="onMunicipalityChosen($event)">
+            (singleInputValue)="onMunicipalityChosen($event)" [inputError]="municipalityError()">
         </app-select-input>
     </div>
     <div>

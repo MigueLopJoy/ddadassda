@@ -35,6 +35,8 @@ export class AddressSelectorComponent {
   province!: string;
   municipality!: string;
   postalCode: string = "";
+  provinceFirstTimeChosen: boolean = false;
+  municipalityFirstTimeChosen: boolean = false;
   addressForm!: FormGroup;
 
   createAddresForm() {
@@ -121,17 +123,21 @@ export class AddressSelectorComponent {
         province: province || '',
         address: address || ''
       });
+
+      console.log("SUBMITTED")
     }
   }
 
   onProvinceChosen(province: string) {
     this.province = province;
+    this.provinceFirstTimeChosen = true;
     this.resetPostalCodeInfo();
     this.municipality = "";
     this.setProvinceMunicipalities();
   }
 
   onMunicipalityChosen(municipality: string) {
+    this.municipalityFirstTimeChosen = true;
     this.resetPostalCodeInfo();
     this.setMunicipalityPostalCodes(municipality);
     if (this.municipalityPostalCodes !== undefined && this.municipalityPostalCodes.length === 1) {
@@ -204,6 +210,71 @@ export class AddressSelectorComponent {
   getObjectKeys(object: object) {
     return Object.keys(object);
   }
+
+  provinceSubmittedOrFirstTimeChosen(): boolean {
+    return this.submitted || this.provinceFirstTimeChosen;
+  }
+
+  provinceValidationError(error: string): boolean {
+    return this.af['province'].errors && this.af['province'].errors[error];
+  }
+
+  provinceRequiredError(): boolean {
+    return this.provinceSubmittedOrFirstTimeChosen() && this.provinceValidationError('required');
+  }
+
+  provinceLengthError(): boolean {
+    return this.provinceSubmittedOrFirstTimeChosen() && this.provinceValidationError('minlegth') ||
+      this.provinceSubmittedOrFirstTimeChosen() && this.provinceValidationError('maxlegth');
+  }
+
+  provincePatternError(): boolean {
+    return this.provinceValidationError('pattern');
+  }
+
+  provinceIncludedError(): boolean {
+    return this.provinceValidationError('isIncluded');
+  }
+
+  provinceError(): boolean {
+    return this.provinceRequiredError() ||
+      this.provinceLengthError() ||
+      this.provincePatternError() ||
+      this.provinceIncludedError();
+  }
+
+  municipalitySubmittedOrFirstTimeChosen(): boolean {
+    return this.submitted || this.municipalityFirstTimeChosen;
+  }
+
+  municipalityValidationError(error: string): boolean {
+    return this.af['municipality'].errors && this.af['municipality'].errors[error];
+  }
+
+  municipalityRequiredError(): boolean {
+    return this.municipalitySubmittedOrFirstTimeChosen() && this.municipalityValidationError('required');
+  }
+
+  municipalityLengthError(): boolean {
+    return this.municipalitySubmittedOrFirstTimeChosen() && this.municipalityValidationError('minlegth') ||
+      this.municipalitySubmittedOrFirstTimeChosen() && this.municipalityValidationError('maxlegth');
+  }
+
+  municipalityPatternError(): boolean {
+    return this.municipalityValidationError('pattern');
+  }
+
+  municipalityIncludedError(): boolean {
+    return this.municipalityValidationError('isIncluded');
+  }
+
+  municipalityError(): boolean {
+    return this.provinceRequiredError() ||
+      this.municipalityLengthError() ||
+      this.municipalityPatternError() ||
+      this.municipalityIncludedError();
+  }
+
 
   ngOnInit() {
     this.createAddresForm();
