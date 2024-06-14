@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, ViewChild } from '@angular/core';
 import { AddressSelectorComponent } from '../../../../shared/address-selector/address-selector.component';
 import { FormBuilder } from '@angular/forms';
 import { shelterRegisterRequest } from '../../../../../core/model/shelter/shelterRegisterRequest';
@@ -16,6 +16,7 @@ export class ShelterRegisterComponent {
     private formBuilder: FormBuilder
   ) {}
 
+  @ViewChild(AddressSelectorComponent) addressForm!: AddressSelectorComponent;
   @Output() registerRequest!: shelterRegisterRequest;
   submitted: boolean = false;
 
@@ -30,7 +31,13 @@ export class ShelterRegisterComponent {
     }
   )
 
-  setAddressInfo(address: Address) {
-    console.log(address);
+  getAddressInfo() {
+    let addressInfo: Address | null = this.addressForm.getAddressInfo();
+    console.log(addressInfo);
+  }
+
+
+  sendRegisterForm() {
+    this.getAddressInfo();
   }
 }

@@ -58,6 +58,24 @@
         </app-select-input>
     </div>
     <div>
-        <input formControlName="address" class="input bg-gray-100 border border-gray-200" placeholder="Dirección" />
+        @if (addressRequiredError()) {
+            <div class="py-1">
+                <small class="text-xs text-rose-500">Debe proporcionar una dirección</small>
+            </div>
+            }
+            @if (addressLengthError()) {
+            <div class="py-1">
+                <small class="text-xs text-rose-500">Cantidad incorrecta de caracteres</small>
+            </div>
+            }
+            @if (addressPatternError()) {
+            <div class="py-1">
+                <small class="text-xs text-rose-500">La dirección proporcionada no es válida</small>
+            </div>
+            }
+        <input formControlName="address" 
+            class="input bg-gray-100 border border-gray-200" 
+            [ngClass]="{'border-rose-500 focus:border-rose-500': addressError()}" 
+            placeholder="Dirección" />
     </div>
 </form>

@@ -53,6 +53,26 @@ export class AddressSelectorComponent {
     this.setAddressValidators();
   }
 
+  setFormValues() {
+    this.addressForm.patchValue({ municipality: this.municipality }, { emitEvent: false })
+    this.addressForm.patchValue({ province: this.province }, { emitEvent: false })
+    this.addressForm.patchValue({ postalCode: this.postalCode }, { emitEvent: false })
+  }
+
+  getAddressInfo(): Address | null {
+    if (!this.addressForm.invalid) {
+      const {postalCode, municipality, province, address} = this.addressForm.value;
+
+      return {
+        postalCode: postalCode || '',
+        municipality: municipality || '',
+        province: province || '',
+        address: address || ''
+      };
+    } 
+    return null;
+  }
+
   get af(): { [key: string]: AbstractControl } {
     return this.addressForm.controls;
   }
@@ -65,7 +85,7 @@ export class AddressSelectorComponent {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z\s]$'),
+        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$'),
         isIncluded(list)
       ]);
       control.updateValueAndValidity();
@@ -80,7 +100,7 @@ export class AddressSelectorComponent {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
-        Validators.pattern('^[a-zA-Z]$'),
+        Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$'),
         isIncluded(list)
       ]);
       control.updateValueAndValidity();
@@ -95,36 +115,9 @@ export class AddressSelectorComponent {
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(100),
-        Validators.pattern('^[a-zA-Z0-9\s\\-,/.ª]+$')
+        Validators.pattern('^[0-9a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s,/\.ªº\-]+$')
       ]); 
       control.updateValueAndValidity();
-    }
-  }
-
-  setFormValues() {
-    let addressFormProperties = this.addressForm.value;
-    addressFormProperties.municipality = this.municipality;
-    addressFormProperties.province = this.province;
-    this.addressForm.patchValue({ postalCode: this.postalCode }, { emitEvent: false })
-  }
-
-  isFormValid(): boolean {
-    this.setFormValues();
-    return !this.addressForm.invalid;
-  }
-
-  submitFormIfValid() {
-    if (this.isFormValid()) {
-      const {postalCode, municipality, province, address} = this.addressForm.value;
-
-      this.addressInfo.emit({
-        postalCode: postalCode || '',
-        municipality: municipality || '',
-        province: province || '',
-        address: address || ''
-      });
-
-      console.log("SUBMITTED")
     }
   }
 
@@ -134,6 +127,7 @@ export class AddressSelectorComponent {
     this.resetPostalCodeInfo();
     this.municipality = "";
     this.setProvinceMunicipalities();
+    this.setFormValues();
   }
 
   onMunicipalityChosen(municipality: string) {
@@ -142,8 +136,8 @@ export class AddressSelectorComponent {
     this.setMunicipalityPostalCodes(municipality);
     if (this.municipalityPostalCodes !== undefined && this.municipalityPostalCodes.length === 1) {
       this.postalCode = this.municipalityPostalCodes[0];
-      this.submitFormIfValid();
     }
+    this.setFormValues();
   }
 
   resetSearch() {
@@ -152,6 +146,7 @@ export class AddressSelectorComponent {
     this.municipality = "";
     this.municipalityPostalCodes = undefined;
     this.municipalities = undefined;
+    this.setFormValues();
   }
 
   resetPostalCodeInfo() {
@@ -167,15 +162,15 @@ export class AddressSelectorComponent {
       this.province = postalCodeInfo.province;
       this.setProvinceMunicipalities();
       this.setMunicipalityPostalCodes(postalCodeInfo.municipality);
-      this.submitFormIfValid();
     }
+    this.setFormValues();
     this.cdr.detectChanges();
   }
 
   setProvinceMunicipalities() {
     let province = this.provincesInfo[this.province];
     this.municipalities = this.getMunicipalityNames(province);
-    this.setMunicipalityValidators();
+    this.setMunicipalityValidators(this.municipalities);
   }
 
   setMunicipalityPostalCodes(municipality: string) {
@@ -275,6 +270,28 @@ export class AddressSelectorComponent {
       this.municipalityIncludedError();
   }
 
+  addressValidationError(error: string): boolean {
+    return this.af['address'].errors && this.af['address'].errors[error];
+  }
+
+  addressRequiredError(): boolean {
+    return this.submitted && this.addressValidationError('required');
+  }
+
+  addressPatternError(): boolean {
+    return this.addressValidationError('pattern');
+  }
+
+  addressLengthError(): boolean {
+    return this.submitted && this.addressValidationError('minlength') || 
+      this.submitted && this.addressValidationError('maxlength');
+  }
+
+  addressError(): boolean {
+    return this.addressRequiredError() ||
+      this.addressLengthError() ||
+      this.addressPatternError();
+  }
 
   ngOnInit() {
     this.createAddresForm();
